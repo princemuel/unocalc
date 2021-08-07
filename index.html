@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles/index.css" />
+    <link rel="stylesheet" href="styles/main.css" />
     <title>Calculator App</title>
     <script defer src="js/index.js"></script>
   </head>
@@ -12,28 +12,30 @@
     <div class="container">
       <section class="grid">
         <div class="header">
-          <h2>Calc</h2>
-          <span>Theme</span>
-          <!-- Can you structure this || -->
-          <div class="toggle">
-            <span>1</span>
-            <span>2</span>
-            <span>3</span>
-            <input
-              type="range"
-              min="1"
-              max="3"
-              value="1"
-              class="slider"
-              id="btn-toggle"
-            />
+          <h2 header-title>Calc</h2>
+          <div class="header-theme">
+            <span>Theme</span>
+            <div class="toggle">
+              <div>
+                <span>1</span>
+                <span>2</span>
+                <span>3</span>
+              </div>
+              <input
+                type="range"
+                min="1"
+                max="3"
+                value="1"
+                class="slider"
+                id="btn-toggle"
+              />
+            </div>
           </div>
+          <!-- Can you structure this || -->
           <!--                         -->
         </div>
-        <div id="results">
-          <input type="number" id="output" disabled />
-        </div>
-        <div class="keys">
+        <input class="display" type="number" id="output" disabled />
+        <div class="keys keypad">
           <button class="btn btn-num">7</button>
           <button class="btn btn-num">8</button>
           <button class="btn btn-num">9</button>
@@ -51,7 +53,7 @@
           <button class="btn operator">/</button>
           <button class="btn operator">x</button>
           <button class="btn reset">Reset</button>
-          <button class="btn operator">=</button>
+          <button class="btn equal">=</button>
         </div>
       </section>
     </div>
