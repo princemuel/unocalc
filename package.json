@@ -1,0 +1,26 @@
+{
+  "name": "fem__calculator-app",
+  "version": "1.0.0",
+  "description": "A calculator app with light and dark themes",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amendezm/FEM__calculator-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amendezm/FEM__calculator-app/issues"
+  },
+  "homepage": "https://github.com/amendezm/FEM__calculator-app#readme",
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-sass": "^5.0.0",
+    "node-sass": "^6.0.1"
+  }
+}
