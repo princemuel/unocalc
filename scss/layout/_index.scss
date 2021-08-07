@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background: hsl(222, 26%, 31%);
+
+  .grid {
+    display: flex;
+    flex-direction: column;
+    height: 90vh;
+    padding: 1.25rem 5vw;
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      width: 100%;
+      margin-bottom: 2rem;
+      color: white;
+    }
+
+    .keys {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+    }
+  }
+}
