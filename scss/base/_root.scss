@@ -1,0 +1,37 @@
+@charset "UTF-8";
+@use "../abstracts/colors" as *;
+@use "../abstracts/type-scale" as *;
+@use "../abstracts/media-query" as *;
+/*!Theme Name: 
+Theme URI: https://
+Repository: https://github.com/pHoeniX-svg/FEM__calculator-app
+Description: A Front-end Mentors Project
+'Authors' Names: Alexis Mendez && Chukwuzube Samuel
+Authors' Monikers: pHoeniX-svg
+Version: 01
+*/
+:root {
+  @each $color, $shades in $colors {
+    @each $shade, $value in $shades {
+      -clr-#{$color}-#{$shade}: #{$value};
+    }
+  }
+  @each $screensize, $font-size in$type-scale {
+    @if $screensize == small {
+      @each $size, $value in $font-size {
+        --fs-#{$size}: #{$value};
+      }
+    } @else {
+      @include mq(small) {
+        @each $size, $value in $font-size {
+          --fs-#{$size}: #{$value};
+        }
+      }
+    }
+  }
+  --ff-primary: 'Spartan', sans-serif;
+}
+
+.force-UTF-8 {
+  content: '¡';
+}

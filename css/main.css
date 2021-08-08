@@ -1,0 +1,179 @@
+@charset "UTF-8";
+/*!Theme Name: 
+Theme URI: https://
+Repository: https://github.com/pHoeniX-svg/FEM__calculator-app
+Description: A Front-end Mentors Project
+'Authors' Names: Alexis Mendez && Chukwuzube Samuel
+Authors' Monikers: pHoeniX-svg
+Version: 01
+*/
+:root {
+  -clr-bg-100: #e6e6e6;
+  -clr-bg-200: #d1cccc;
+  -clr-bg-300: #ededed;
+  -clr-bg-400: #3a4764;
+  -clr-bg-500: #232c43;
+  -clr-bg-600: #182034;
+  -clr-bg-700: #160628;
+  -clr-bg-800: #1d0934;
+  -clr-keys-50: #eae3dc;
+  -clr-keys-100: #e5e4e1;
+  -clr-keys-150: #b4a597;
+  -clr-keys-200: #a69d91;
+  -clr-keys-250: #d03f2f;
+  -clr-keys-300: #93261a;
+  -clr-keys-350: #ca5502;
+  -clr-keys-400: #893901;
+  -clr-keys-450: #6cf9f2;
+  -clr-keys-500: #00e0d1;
+  -clr-keys-550: #377f86;
+  -clr-keys-600: #1b5f65;
+  -clr-keys-650: #637097;
+  -clr-keys-700: #404e72;
+  -clr-keys-750: #871c9c;
+  -clr-keys-800: #bc15f4;
+  -clr-keys-850: #58077d;
+  -clr-keys-900: #341c4f;
+  -clr-text-100: white;
+  -clr-text-200: #ffe53d;
+  -clr-text-300: #444b5a;
+  -clr-text-400: #35352c;
+  -clr-text-500: #1b2428;
+  --fs-300: 1rem;
+  --fs-400: 1.125rem;
+  --fs-500: 1.563rem;
+  --fs-600: 1.953rem;
+  --fs-700: 2.441rem;
+  --fs-800: 3.052rem;
+  --ff-primary: "Spartan", sans-serif;
+}
+@media only screen and (min-width: 40em) {
+  :root {
+    --fs-300: 1rem;
+    --fs-400: 1.425rem;
+    --fs-500: 2rem;
+    --fs-600: 1.827;
+    --fs-700: 4rem;
+    --fs-800: 5.65rem;
+  }
+}
+
+.force-UTF-8 {
+  content: "¡";
+}
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+/* Set core root defaults */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  outline: none;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *,
+*::before,
+*::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background: #3a4764;
+}
+.container .grid {
+  display: flex;
+  flex-direction: column;
+  height: 90vh;
+  padding: 1.25rem 5vw;
+}
+.container .grid .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+  margin-bottom: 2rem;
+  color: white;
+}
+.container .grid .keys {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+
+.display {
+  height: 14vh;
+  border-radius: 10px;
+  background-color: #182034;
+  border-color: transparent;
+}
+
+.keypad {
+  height: 55vh;
+  padding: 1rem 1rem;
+  background-color: #232c43;
+  border-radius: 10px;
+}
+.keypad .btn {
+  flex: 1 0 20%;
+  margin: 2vw;
+  height: 8vh;
+}
+.keypad .btn.btn-num, .keypad .btn.operator {
+  background-color: #eae3dc;
+}
+.keypad .btn.delete, .keypad .btn.reset {
+  background-color: #637097;
+  color: white;
+  text-transform: uppercase;
+}
+.keypad .btn.equal {
+  background-color: #d03f2f;
+  color: white;
+}
+
+/*# sourceMappingURL=main.css.map */
