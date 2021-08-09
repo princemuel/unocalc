@@ -1,0 +1,12 @@
+.display {
+  justify-content: space-between;
+  border-radius: var(--br);
+  .previous-val {
+    justify-content: flex-end;
+  }
+  .current-val {
+    padding: 1rem;
+    font-size: var(--fs-700);
+    text-align: right;
+  }
+}

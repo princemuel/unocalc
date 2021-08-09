@@ -1,0 +1,23 @@
+@use "../abstracts/mixins" as m;
+.keypad {
+  --flow-space: 1.2em;
+  display: grid;
+  padding: 1.2em;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-areas:
+    'sv et nn del'
+    'fr fv sx pls'
+    'on tw tr min'
+    'dt zr dvd tim'
+    'rst rst eql eql';
+  gap: 0.6rem;
+  @include m.mq('xs'){
+gap: 1rem;
+  }
+  .reset {
+    grid-area: rst;
+  }
+  .equals {
+    grid-area: eql;
+  }
+}

@@ -1,2 +1,4 @@
-@import "display.scss";
-@import "keypad.scss";
+@forward "buttons";
+@forward "input";
+@forward"display";
+@forward "keypad";

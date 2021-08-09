@@ -1,0 +1,498 @@
+@charset "UTF-8";
+/*!Theme Name: 
+Theme URI: https://
+Repository: https://github.com/pHoeniX-svg/FEM__calculator-app
+Description: A Calculator App: FEM__Project
+'Authors' Names: Alexis Mendez && Chukwuzube Samuel
+Authors' Monikers: amendezm && pHoeniX-svg
+Version: 01
+*/
+:root {
+  --clr-bg-100: #e6e6e6;
+  --clr-bg-200: #d1cccc;
+  --clr-bg-300: #ededed;
+  --clr-bg-400: #3a4764;
+  --clr-bg-500: #232c43;
+  --clr-bg-600: #182034;
+  --clr-bg-700: #160628;
+  --clr-bg-800: #1d0934;
+  --clr-keys-50: #eae3dc;
+  --clr-keys-100: #e5e4e1;
+  --clr-keys-150: #b4a597;
+  --clr-keys-200: #a69d91;
+  --clr-keys-250: #d03f2f;
+  --clr-keys-300: #93261a;
+  --clr-keys-350: #ca5502;
+  --clr-keys-400: #893901;
+  --clr-keys-450: #6cf9f2;
+  --clr-keys-500: #00e0d1;
+  --clr-keys-550: #377f86;
+  --clr-keys-600: #1b5f65;
+  --clr-keys-650: #637097;
+  --clr-keys-700: #404e72;
+  --clr-keys-750: #871c9c;
+  --clr-keys-800: #bc15f4;
+  --clr-keys-850: #58077d;
+  --clr-keys-900: #341c4f;
+  --clr-text-100: white;
+  --clr-text-200: #ffe53d;
+  --clr-text-300: #444b5a;
+  --clr-text-400: #35352c;
+  --clr-text-500: #1b2428;
+  --fs-200: 0.8rem;
+  --fs-300: 1rem;
+  --fs-400: 1.125rem;
+  --fs-500: 1.563rem;
+  --fs-600: 1.827rem;
+  --fs-700: 2rem;
+  --ff-primary: "Spartan", sans-serif;
+}
+@media only screen and (min-width: 768px) {
+  :root {
+    --fs-200: 0.8rem;
+    --fs-300: 1rem;
+    --fs-400: 1.425rem;
+    --fs-500: 1.953rem;
+    --fs-600: 2rem;
+    --fs-700: 2.441rem;
+  }
+}
+
+/* Box sizing rules */
+html {
+  box-sizing: border-box;
+}
+
+* {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+*:before, *:after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+/* Set core root defaults */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *,
+*::before,
+*::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+* {
+  outline: 1px dashed rgba(218, 197, 197, 0.2) !important;
+}
+
+/* setup */
+body {
+  position: relative;
+  background-color: var(--clr-bg-400);
+  font-family: var(--ff-primary);
+  font-size: var(--fs-300);
+  font-weight: bold;
+  line-height: 1.5;
+}
+
+.bg-100 {
+  background-color: var(--clr-bg-100);
+}
+
+.bg-200 {
+  background-color: var(--clr-bg-200);
+}
+
+.bg-300 {
+  background-color: var(--clr-bg-300);
+}
+
+.bg-400 {
+  background-color: var(--clr-bg-400);
+}
+
+.bg-500 {
+  background-color: var(--clr-bg-500);
+}
+
+.bg-600 {
+  background-color: var(--clr-bg-600);
+}
+
+.bg-700 {
+  background-color: var(--clr-bg-700);
+}
+
+.bg-800 {
+  background-color: var(--clr-bg-800);
+}
+
+.clr-keys-50 {
+  background-color: var(--clr-keys-50);
+}
+
+.clr-keys-100 {
+  background-color: var(--clr-keys-100);
+}
+
+.clr-keys-150 {
+  background-color: var(--clr-keys-150);
+}
+
+.clr-keys-200 {
+  background-color: var(--clr-keys-200);
+}
+
+.clr-keys-250 {
+  background-color: var(--clr-keys-250);
+}
+
+.clr-keys-300 {
+  background-color: var(--clr-keys-300);
+}
+
+.clr-keys-350 {
+  background-color: var(--clr-keys-350);
+}
+
+.clr-keys-400 {
+  background-color: var(--clr-keys-400);
+}
+
+.clr-keys-450 {
+  background-color: var(--clr-keys-450);
+}
+
+.clr-keys-500 {
+  background-color: var(--clr-keys-500);
+}
+
+.clr-keys-550 {
+  background-color: var(--clr-keys-550);
+}
+
+.clr-keys-600 {
+  background-color: var(--clr-keys-600);
+}
+
+.clr-keys-650 {
+  background-color: var(--clr-keys-650);
+}
+
+.clr-keys-700 {
+  background-color: var(--clr-keys-700);
+}
+
+.clr-keys-750 {
+  background-color: var(--clr-keys-750);
+}
+
+.clr-keys-800 {
+  background-color: var(--clr-keys-800);
+}
+
+.clr-keys-850 {
+  background-color: var(--clr-keys-850);
+}
+
+.clr-keys-900 {
+  background-color: var(--clr-keys-900);
+}
+
+.clr-text-100 {
+  color: var(--clr-text-100);
+}
+
+.clr-text-200 {
+  color: var(--clr-text-200);
+}
+
+.clr-text-300 {
+  color: var(--clr-text-300);
+}
+
+.clr-text-400 {
+  color: var(--clr-text-400);
+}
+
+.clr-text-500 {
+  color: var(--clr-text-500);
+}
+
+/* Text Utilities */
+.text-normal {
+  font-style: normal;
+}
+
+.text-upper {
+  text-transform: uppercase;
+}
+
+.text-lower {
+  text-transform: lowercase;
+}
+
+.rounded {
+  --br: 0.5em;
+  border-radius: var(--br);
+}
+
+.container {
+  width: 80%;
+  max-width: 30rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1.5rem;
+}
+
+/* Positioning Utilities */
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.flex-center-vt {
+  display: flex;
+  align-items: center;
+}
+
+.flex-center-hz {
+  display: flex;
+  justify-content: center;
+}
+
+.col {
+  width: 100%;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Flow Utilities */
+.flow {
+  --flow-space: 1em;
+}
+
+.flow > * + * {
+  margin-top: var(--flow-space, 1em);
+}
+
+.btn {
+  border: 0;
+  font: inherit;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  text-decoration: none;
+  outline: none;
+  mix-blend-mode: normal;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+@supports (-webkit-appearance: none) or (-moz-appearance: none) {
+  input[type=radio] {
+    --active: var(--clr-bg-400);
+    --active-inner: #fff;
+    --focus: 2px rgba(39, 94, 254, 0.3);
+    --border: #bbc1e1;
+    --border-hover: #275efe;
+    --background: #fff;
+    --disabled: #f6f8ff;
+    --disabled-inner: #e1e6f9;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    height: 21px;
+    outline: none;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    margin: 0;
+    cursor: pointer;
+    border: 1px solid var(--bc, var(--border));
+    background: var(--b, var(--background));
+    transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;
+  }
+  input[type=radio]:after {
+    content: "";
+    display: block;
+    left: 0;
+    top: 0;
+    position: absolute;
+    transition: transform var(--d-t, 0.3s) var(--d-t-e, ease), opacity var(--d-o, 0.2s);
+  }
+  input[type=radio]:checked {
+    --b: var(--active);
+    --bc: var(--active);
+    --d-o: 0.3s;
+    --d-t: 0.6s;
+    --d-t-e: cubic-bezier(0.2, 0.85, 0.32, 1.2);
+  }
+  input[type=radio]:disabled {
+    --b: var(--disabled);
+    cursor: not-allowed;
+    opacity: 0.9;
+  }
+  input[type=radio]:disabled:checked {
+    --b: var(--disabled-inner);
+    --bc: var(--border);
+  }
+  input[type=radio]:disabled + label {
+    cursor: not-allowed;
+  }
+  input[type=radio]:hover:not(:checked):not(:disabled) {
+    --bc: var(--border-hover);
+  }
+  input[type=radio]:focus {
+    box-shadow: 0 0 0 var(--focus);
+  }
+  input[type=radio]:not(.switch) {
+    width: 21px;
+  }
+  input[type=radio]:not(.switch):after {
+    opacity: var(--o, 0);
+  }
+  input[type=radio]:not(.switch):checked {
+    --o: 1;
+  }
+  input[type=radio] + label {
+    font-size: 14px;
+    line-height: 21px;
+    display: inline-block;
+    vertical-align: top;
+    cursor: pointer;
+    margin-left: 4px;
+  }
+
+  input[type=radio] {
+    border-radius: 50%;
+  }
+  input[type=radio]:after {
+    width: 19px;
+    height: 19px;
+    border-radius: 50%;
+    background: var(--active-inner);
+    opacity: 0;
+    transform: scale(var(--s, 0.7));
+  }
+  input[type=radio]:checked {
+    --s: 0.5;
+  }
+}
+input[type=text]:disabled {
+  height: 100%;
+  width: 100%;
+  border: none;
+  background: transparent;
+  outline: none;
+}
+
+.display {
+  justify-content: space-between;
+  border-radius: var(--br);
+}
+.display .previous-val {
+  justify-content: flex-end;
+}
+.display .current-val {
+  padding: 1rem;
+  font-size: var(--fs-700);
+  text-align: right;
+}
+
+.keypad {
+  --flow-space: 1.2em;
+  display: grid;
+  padding: 1.2em;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-areas: "sv et nn del" "fr fv sx pls" "on tw tr min" "dt zr dvd tim" "rst rst eql eql";
+  gap: 0.6rem;
+}
+@media only screen and (min-width: 576px) {
+  .keypad {
+    gap: 1rem;
+  }
+}
+.keypad .reset {
+  grid-area: rst;
+}
+.keypad .equals {
+  grid-area: eql;
+}
+
+.calculator {
+  display: grid;
+  grid-template-rows: 1fr 1fr 4fr;
+  width: 100%;
+  height: 32em;
+}
+
+/* Attribution */
+.attribution {
+  position: absolute;
+  text-align: center;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding-bottom: 0.5rem;
+  font-size: 11px;
+}
+.attribution a {
+  text-decoration: none;
+}
+
+/* DON'T REMOVE!!!: Forces the utf-8 declaration above as default charset in the CSS*/
+.force-UTF-8 {
+  content: "¡";
+}
+
+/*# sourceMappingURL=main.css.map */

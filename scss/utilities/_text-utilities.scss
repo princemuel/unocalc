@@ -1,0 +1,15 @@
+/* Text Utilities */
+
+.text-normal {
+  font-style: normal;
+}
+.text-upper {
+  text-transform: uppercase;
+}
+.text-lower {
+  text-transform: lowercase;
+}
+.rounded {
+  --br: 0.5em;
+  border-radius: var(--br);
+}

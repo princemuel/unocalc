@@ -4,58 +4,65 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles/main.css" />
+    <link rel="shortcut icon" href="images/favicon-32x32.png" type="image/png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Spartan:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css" />
     <title>Calculator App</title>
     <script defer src="js/index.js"></script>
   </head>
-  <body>
+  <body class="flex-center-vt">
     <div class="container">
-      <section class="grid">
-        <div class="header">
-          <h2 header-title>Calc</h2>
-          <div class="header-theme">
-            <span>Theme</span>
-            <div class="toggle">
-              <div>
-                <span>1</span>
-                <span>2</span>
-                <span>3</span>
-              </div>
-              <input
-                type="range"
-                min="1"
-                max="3"
-                value="1"
-                class="slider"
-                id="btn-toggle"
-              />
-            </div>
+      <section class="calculator flow">
+        <header class="header">
+          <h2 class="text-lower">Calc</h2>
+          <span class="text-">Theme</span>
+          <div class="switch">
+            <input name="switch" id="s1" type="radio" checked/>
+            <label for="one" class="switch__label">1</label>
+            <input name="switch" id="s2" type="radio" />
+            <label for="s2" class="switch__label">2</label>
+            <input name="switch" id="s3" type="radio" />
+            <label for="s3" class="switch__label" >3</label>
+            <div class="switch__indicator" /></div>
           </div>
-          <!-- Can you structure this || -->
-          <!--                         -->
-        </div>
-        <input class="display" type="number" id="output" disabled />
-        <div class="keys keypad">
-          <button class="btn btn-num">7</button>
-          <button class="btn btn-num">8</button>
-          <button class="btn btn-num">9</button>
-          <button class="btn delete">Del</button>
-          <button class="btn btn-num">4</button>
-          <button class="btn btn-num">5</button>
-          <button class="btn btn-num">6</button>
-          <button class="btn operator">+</button>
-          <button class="btn btn-num">1</button>
-          <button class="btn btn-num">2</button>
-          <button class="btn btn-num">3</button>
-          <button class="btn operator">-</button>
+        </header>
+        <section class="display flex rounded">
+          <div class="previous-val flex"></div>
+          <input class="current-val" type="text" id="output" value="0" disabled />
+        </section>
+        <section class="keypad">
+          <!-- 1 -->
+          <button class="btn number">7</button>
+          <button class="btn number">8</button>
+          <button class="btn number">9</button>
+          <button class="btn delete">DEL</button>
+          <!-- 2 -->
+          <button class="btn number">4</button>
+          <button class="btn number">5</button>
+          <button class="btn number">6</button>
+          <button class="btn operator plus">+</button>
+          <!-- 3 -->
+          <button class="btn number">1</button>
+          <button class="btn number">2</button>
+          <button class="btn number">3</button>
+          <button class="btn operator minus">-</button>
+          <!-- 4 -->
           <button class="btn decimal">.</button>
-          <button class="btn btn-num">0</button>
-          <button class="btn operator">/</button>
-          <button class="btn operator">x</button>
+          <button class="btn number">0</button>
+          <button class="btn operator divide">/</button>
+          <button class="btn operator multiply">x</button>
+          <!-- 5 -->
           <button class="btn reset">Reset</button>
-          <button class="btn equal">=</button>
-        </div>
+          <button class="btn equals">=</button>
+        </section>
       </section>
+    </div>
+
+    <div class="attribution">
+      Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
+      Coded by <a href="#">pHoeniX && amendezm</a>.
     </div>
   </body>
 </html>

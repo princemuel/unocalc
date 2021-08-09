@@ -1,5 +1,12 @@
-@import "abstracts/index";
-@import "base/index";
-@import "layout/index";
-@import "components/index";
-@import "themes/index";
+@charset "utf-8";
+@use "abstracts";
+@use "base";
+@use 'utilities';
+@use "components";
+@use "layout";
+@use "themes";
+
+/* DON'T REMOVE!!!: Forces the utf-8 declaration above as default charset in the CSS*/
+.force-UTF-8 {
+  content: '¡';
+}
