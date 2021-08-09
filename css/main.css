@@ -46,7 +46,6 @@ Version: 01
   --fs-600: 1.827rem;
   --fs-700: 2rem;
   --ff-primary: "Spartan", sans-serif;
-  --br: 0.5rem;
 }
 @media only screen and (min-width: 768px) {
   :root {
@@ -117,19 +116,6 @@ select {
     scroll-behavior: auto !important;
   }
 }
-/* Text Utilities */
-.text-normal {
-  font-style: normal;
-}
-
-.text-uppercase {
-  text-transform: uppercase;
-}
-
-.rounded {
-  --br: 8px;
-}
-
 * {
   outline: 1px dashed rgba(218, 197, 197, 0.2) !important;
 }
@@ -266,6 +252,24 @@ body {
 
 .clr-text-500 {
   color: var(--clr-text-500);
+}
+
+/* Text Utilities */
+.text-normal {
+  font-style: normal;
+}
+
+.text-upper {
+  text-transform: uppercase;
+}
+
+.text-lower {
+  text-transform: lowercase;
+}
+
+.rounded {
+  --br: 0.5em;
+  border-radius: var(--br);
 }
 
 .container {
@@ -440,7 +444,7 @@ input[type=text]:disabled {
   justify-content: flex-end;
 }
 .display .current-val {
-  padding: 0.7rem;
+  padding: 1rem;
   font-size: var(--fs-700);
   text-align: right;
 }

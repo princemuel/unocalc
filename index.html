@@ -4,7 +4,10 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="images/favicon-32x32.png" type="image/png">
+    <link rel="shortcut icon" href="images/favicon-32x32.png" type="image/png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Spartan:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css" />
     <title>Calculator App</title>
     <script defer src="js/index.js"></script>
@@ -13,7 +16,8 @@
     <div class="container">
       <section class="calculator flow">
         <header class="header">
-          <h2>Calc</h2>
+          <h2 class="text-lower">Calc</h2>
+          <span class="text-">Theme</span>
           <div class="switch">
             <input name="switch" id="s1" type="radio" checked/>
             <label for="one" class="switch__label">1</label>
@@ -24,7 +28,7 @@
             <div class="switch__indicator" /></div>
           </div>
         </header>
-        <section class="display flex">
+        <section class="display flex rounded">
           <div class="previous-val flex"></div>
           <input class="current-val" type="text" id="output" value="0" disabled />
         </section>
