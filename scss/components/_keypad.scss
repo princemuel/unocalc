@@ -1,29 +1,23 @@
+@use "../abstracts/mixins" as m;
 .keypad {
-  height: 55vh;
-  padding: 1rem 1rem;
-  background-color: hsl(223, 31%, 20%);
-  border-radius: 10px;
-
-  .btn {
-    flex: 1 0 20%;
-    margin: 2vw;
-    height: 8vh;
-
-    &.btn-num,
-    &.operator {
-      background-color: hsl(30, 25%, 89%);
-    }
-
-    &.delete,
-    &.reset {
-      background-color: hsl(225, 21%, 49%);
-      color: white;
-      text-transform: uppercase;
-    }
-
-    &.equal {
-      background-color: hsl(6, 63%, 50%);
-      color: white;
-    }
+  --flow-space: 1.2em;
+  display: grid;
+  padding: 1.2em;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-areas:
+    'sv et nn del'
+    'fr fv sx pls'
+    'on tw tr min'
+    'dt zr dvd tim'
+    'rst rst eql eql';
+  gap: 0.6rem;
+  @include m.mq('xs'){
+gap: 1rem;
+  }
+  .reset {
+    grid-area: rst;
+  }
+  .equals {
+    grid-area: eql;
   }
 }

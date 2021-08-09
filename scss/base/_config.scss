@@ -1,0 +1,15 @@
+* {
+  outline: 1px dashed rgba(218, 197, 197, 0.2) !important;
+}
+/* setup */
+body {
+  position: relative;
+  background-color: var(--clr-bg-400);
+  font: {
+    family: var(--ff-primary);
+    size: var(--fs-300);
+    weight: bold;
+  }
+  line-height: 1.5;
+}
+

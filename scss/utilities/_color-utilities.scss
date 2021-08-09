@@ -1,0 +1,21 @@
+@use '../abstracts/colors' as *;
+
+@each $color, $shades in $colors {
+  @each $shade, $value in $shades {
+    @if $color == bg {
+      .#{$color}-#{$shade} {
+        background-color: var(#{--clr-#{$color}-#{$shade}});
+      }
+    }
+    @if $color == text {
+      .clr-#{$color}-#{$shade} {
+        color: var(#{--clr-#{$color}-#{$shade}});
+      }
+    }
+    @if $color == keys {
+      .clr-#{$color}-#{$shade} {
+        background-color: var(#{--clr-#{$color}-#{$shade}});
+      }
+    }
+  }
+}

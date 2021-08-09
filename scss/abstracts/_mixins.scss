@@ -1,42 +1,60 @@
+@use './breakpoints' as *;
 
-/// Slightly lighten a color
-/// @access public
-/// @param {Color} $color - color to tint
-/// @param {Number} $percentage - percentage of `$color` in returned color
-/// @return {Color}
-@function tint($color, $percentage) {
-  @return mix(white, $color, $percentage);
+//Position Mixins
+// Same height
+@mixin size($width, $height: $width) {
+  width: $width;
+  height: $height;
 }
 
-/// Slightly darken a color
-/// @access public
-/// @param {Color} $color - color to shade
-/// @param {Number} $percentage - percentage of `$color` in returned color
-/// @return {Color}
-@function shade($color, $percentage) {
-  @return mix(black, $color, $percentage);
+// Mixin for Pseudo elements \\
+@mixin pseudo(
+  $loc: before,
+  $content: '',
+  $pos: absolute,
+  $top: 0,
+  $btm: 0,
+  $left: 0,
+  $right: 0
+) {
+  position: relative;
+
+  &::#{$loc} {
+    content: $content;
+    position: $pos;
+    top: $top;
+    bottom: $btm;
+    left: $left;
+    right: $right;
+    @content;
+  }
+}
+@mixin centerer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+@mixin coverer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
-// Positioning
-@mixin display($display, $prop1, $val1, $prop2, $val2) {
-  display: #{$display};
-  #{$prop1}: #{$val1};
-  #{$prop2}: #{$val2};
+//Breakpoints Mixins
+@mixin mq($key) {
+  $size: map-get($breakpoints, $key);
+  @media only screen and (min-width: $size) {
+    @content;
+  }
 }
-
-// Media Queries
-$breakpoints: (
-  xs: 576px,
-  sm: 768px,
-  md: 992px,
-  lg: 1200px,
-);
-
 // @include respond-above(sm) {}
 @mixin respond-above($breakpoint) {
   @if map-has-key($breakpoints, $breakpoint) {
-    $breakpoint-value: map-get($breakpoints, $breakpoint);
-    @media (min-width: $breakpoint-value) {
+    $size: map-get($breakpoints, $breakpoint);
+    @media (min-width: $size) {
       @content;
     }
   } @else {
@@ -48,8 +66,8 @@ $breakpoints: (
 // @include respond-below(sm) {}
 @mixin respond-below($breakpoint) {
   @if map-has-key($breakpoints, $breakpoint) {
-    $breakpoint-value: map-get($breakpoints, $breakpoint);
-    @media (max-width: ($breakpoint-value - 1)) {
+    $size: map-get($breakpoints, $breakpoint);
+    @media (max-width: ($size - 1)) {
       @content;
     }
   } @else {
@@ -79,124 +97,19 @@ $breakpoints: (
   }
 }
 
-@mixin centerer {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-@mixin coverer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
 //................................................................\\
 
-// Afunction which appends the url for an asset automatically\\ 
-/// Base path for assets (fonts, images...),
-/// should not include trailing slash
-/// @access public
-/// @type String
-$asset-base-path: '../assets' !default;
-
-/// Asset URL builder
-/// @access private
-/// @param {String} $type - Asset type, matching folder name
-/// @param {String} $file - Asset file name, including extension
-/// @return {URL} - A `url()` function leading to the asset
-@function asset($type, $file) {
-  @return url($asset-base-path + '/' + $type + '/' + $file);
-}
-/// Image asset helper
-/// @access public
-/// @param {String} $file - Asset file name, including extension
-/// @return {URL} - A `url()` function leading to the image
-/// @require {function} asset
-@function image($file) {
-  @return asset('images', $file);
-}
-/// Font asset helper
-/// @access public
-/// @param {String} $file - Asset file name, including extension
-/// @return {URL} - A `url()` function leading to the font
-/// @require {function} asset
-@function font($file) {
-  @return asset('fonts', $file);
-}
-
-/// @example scss - Usage
-///   .foo {
-///     background: img('images/flower.jpg')
-///   }
-///   .bar {
-///     background: img('images/flower.jpg'), img('images/bird.jpg');
-///   }
-/// @example css - CSS output
-///   .foo {
-///     background: url(../images/flower.jpg)
-///   }
-///   .bar {
-///     background: url(../images/flower.jpg), url(../images/bird.jpg);
-///   }
 //................................................................\\
 
-/// Mixin helping defining both `width` and `height` simultaneously.
-///
-/// @access public
-/// @param {Length} $width - Element’s `width`
-/// @param {Length} $height [$width] - Element’s `height`
-/// @example scss - Usage
-///   .foo {
-///     @include size(10em);
-///   }
-///
-///   .bar {
-///     @include size(100%, 10em);
-///   }
-/// @example css - CSS output
-///   .foo {
-///     width: 10em;
-///     height: 10em;
-///   }
-///   .bar {
-///     width: 100%;
-///     height: 10em;
-///   }
-@mixin size($width, $height: $width) {
-  width: $width;
-  height: $height;
-}
-//................................................................\\
-
-/// Z-indexes map, gathering all Z layers of the application
-/// @access private
-/// @type Map
-/// @prop {String} key - Layer’s name
-/// @prop {Number} value - Z value mapped to the key
-$z-indexes: (
-  'modal': 5000,
-  'dropdown': 4000,
-  'default': 1,
-  'below': -1,
-);
-
-/// Get a z-index value from a layer name
-/// @access public
-/// @param {String} $layer - Layer’s name
-/// @return {Number}
-/// @require $z-indexes
-@function z($layer) {
-  @return map-get($z-indexes, $layer);
-}
-
-%button {
-  display: inline-block;
-  // … button styles
-
-  // Relationship: a %button that is a child of a %modal
-  %modal > & {
-    display: block;
+@mixin hover-lift() {
+  transition: transform 350ms ease-in-out;
+  box-shadow: 0 0.25em 0.5em 0 rgba(black, 0.2);
+  @include pseudo(after) {
+    transition: transform 350ms ease-in-out;
+    box-shadow: 0 0 1.25em 0 rgba(black, 0.4);
+  }
+  &:hover,
+  &:focus {
+    transform: scale(1.05);
   }
 }

@@ -1,4 +1,6 @@
-@forward 'mixins';
-@forward 'colors';
+@forward "colors";
+@forward "type";
 @forward "functions";
-@forward "type-scale";
+@forward "breakpoints";
+@forward "mixins";
+

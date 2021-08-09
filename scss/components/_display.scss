@@ -1,6 +1,12 @@
 .display {
-  height: 14vh;
-  border-radius: 10px;
-  background-color: hsl(224, 36%, 15%);
-  border-color: transparent;
+  justify-content: space-between;
+  border-radius: var(--br);
+  .previous-val {
+    justify-content: flex-end;
+  }
+  .current-val {
+    padding: .7rem;
+    font-size: var(--fs-700);
+    text-align: right;
+  }
 }

@@ -1,28 +1,29 @@
-@charset "UTF-8";
 @use "../abstracts/colors" as *;
-@use "../abstracts/type-scale" as *;
-@use "../abstracts/media-query" as *;
+@use "../abstracts/type" as *;
+@use '../abstracts/mixins' as *;
 /*!Theme Name: 
 Theme URI: https://
 Repository: https://github.com/pHoeniX-svg/FEM__calculator-app
-Description: A Front-end Mentors Project
+Description: A Calculator App: FEM__Project
 'Authors' Names: Alexis Mendez && Chukwuzube Samuel
-Authors' Monikers: pHoeniX-svg
+Authors' Monikers: amendezm && pHoeniX-svg
 Version: 01
 */
 :root {
+  // outputs the theme colors as css variables
   @each $color, $shades in $colors {
     @each $shade, $value in $shades {
-      -clr-#{$color}-#{$shade}: #{$value};
+      --clr-#{$color}-#{$shade}: #{$value};
     }
   }
-  @each $screensize, $font-size in$type-scale {
+  // outputs the font-sizes as css variables
+  @each $screensize, $font-size in $font-sizes {
     @if $screensize == small {
       @each $size, $value in $font-size {
         --fs-#{$size}: #{$value};
       }
     } @else {
-      @include mq(small) {
+      @include mq('sm') {
         @each $size, $value in $font-size {
           --fs-#{$size}: #{$value};
         }
@@ -30,8 +31,7 @@ Version: 01
     }
   }
   --ff-primary: 'Spartan', sans-serif;
+  --br: 0.5rem;
 }
 
-.force-UTF-8 {
-  content: '¡';
-}
+
