@@ -1,6 +1,6 @@
 # Lendy Calc
 
-Yet another calculator app with light and dark themes
+Yet another calculator app with Light-Neon-Dark themes
 
 ## Screenshot
 
