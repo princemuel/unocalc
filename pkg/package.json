@@ -1,0 +1,26 @@
+{
+  "name": "lendycalc",
+  "collaborators": [
+    "Prince Muel <vansomecsam@gmail.com>"
+  ],
+  "description": "Yet another calculator webapp built with Rust and Web Assembly",
+  "version": "0.2.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/princemuel/lendycalc"
+  },
+  "files": [
+    "lendycalc_bg.wasm",
+    "lendycalc.js",
+    "lendycalc_bg.js",
+    "lendycalc.d.ts",
+    "LICENSE.txt"
+  ],
+  "module": "lendycalc.js",
+  "types": "lendycalc.d.ts",
+  "sideEffects": [
+    "./lendycalc.js",
+    "./snippets/*"
+  ]
+}
