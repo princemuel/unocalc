@@ -1,6 +1,6 @@
-# FEM\_\_calculator-app
+# Lendy Calc
 
-A calculator app with light and dark themes
+Yet another calculator app with light and dark themes
 
 ## Screenshot
 
