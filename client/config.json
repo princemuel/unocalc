@@ -2,7 +2,7 @@
   "theme": {
     "colors": {},
     "fonts": {
-      "family": { "sans": "" },
+      "family": { "sans": "var(--font-sans)" },
       "weights": {}
     },
     "cursor": {
