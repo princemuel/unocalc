@@ -1,30 +1,23 @@
+mod calculator_builder;
+mod number;
+mod operation;
 mod utils;
 
+use crate::calculator_builder::CalculatorBuilder;
+use crate::number::Number;
 use wasm_bindgen::prelude::*;
 
-#[derive(Debug, Clone, PartialEq)]
-pub enum Number {
-    Int(i64),
-    Float(f64),
+#[wasm_bindgen]
+pub struct Calculator {
+    result: number::Number,
 }
 
-impl From<i64> for Number {
-    fn from(value: i64) -> Self {
-        Number::Int(value)
+impl Calculator {
+    pub fn builder() -> CalculatorBuilder {
+        CalculatorBuilder::default()
     }
-}
 
-impl From<f64> for Number {
-    fn from(value: f64) -> Self {
-        Number::Float(value)
-    }
-}
-
-impl Number {
-    fn to_float(&self) -> f64 {
-        match self {
-            Number::Int(value) => *value as f64,
-            Number::Float(value) => *value,
-        }
+    pub fn get_result(&self) -> Number {
+        self.result.clone()
     }
 }
