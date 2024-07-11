@@ -17,17 +17,17 @@ fn test_input_digit() {
     let mut calc = Calculator::new();
 
     calc.input_digit(5);
-    assert_eq!(calc.current_value, 5.0);
+    assert_eq!(calc.current_value(), 5.0);
 
     calc.input_digit(3);
-    assert_eq!(calc.current_value, 53.0);
+    assert_eq!(calc.current_value(), 53.0);
 
     calc.input_digit(7);
-    assert_eq!(calc.current_value, 537.0);
+    assert_eq!(calc.current_value(), 537.0);
 
     calc.input_decimal();
     calc.input_digit(2);
-    assert_eq!(calc.current_value, 537.2);
+    assert_eq!(calc.current_value(), 537.2);
 }
 
 #[cfg(test)]
@@ -39,19 +39,19 @@ fn test_input_decimal() {
     calc.input_digit(5);
     calc.input_decimal();
     calc.input_digit(3);
-    assert_eq!(calc.current_value, 5.3);
+    assert_eq!(calc.current_value(), 5.3);
 
     // Should not add decimal point multiple times
     calc.input_decimal();
-    assert_eq!(calc.current_value, 5.3);
+    assert_eq!(calc.current_value(), 5.3);
 
     calc.input_decimal();
     calc.input_digit(7);
-    assert_eq!(calc.current_value, 5.37);
+    assert_eq!(calc.current_value(), 5.37);
 
     calc.input_decimal();
     calc.input_digit(4);
-    assert_eq!(calc.current_value, 5.374);
+    assert_eq!(calc.current_value(), 5.374);
 }
 
 #[cfg(test)]
@@ -62,28 +62,28 @@ fn test_delete_last_digit() {
     // Delete last digit from a single-digit number
     calc.input_digit(5);
     calc.delete_last_digit();
-    assert_eq!(calc.current_value, 0.0);
+    assert_eq!(calc.current_value(), 0.0);
 
     // Delete last digit from a multi-digit number
     calc.input_digit(1);
     calc.input_digit(2);
     calc.input_digit(3);
     calc.delete_last_digit();
-    assert_eq!(calc.current_value, 12.0);
+    assert_eq!(calc.current_value(), 12.0);
 
     // Delete last digit after decimal point
     calc.input_decimal();
     calc.input_digit(5);
     calc.delete_last_digit();
-    assert_eq!(calc.current_value, 12.0); // Should maintain the integer part
+    assert_eq!(calc.current_value(), 12.0); // Should maintain the integer part
 
     calc.delete_last_digit();
     calc.delete_last_digit();
-    assert_eq!(calc.current_value, 0.0);
+    assert_eq!(calc.current_value(), 0.0);
 
     // Delete when current value is already zero
     calc.delete_last_digit();
-    assert_eq!(calc.current_value, 0.0); // Should remain zero
+    assert_eq!(calc.current_value(), 0.0); // Should remain zero
 }
 
 #[wasm_bindgen_test]
@@ -91,47 +91,47 @@ fn test_input_operation() {
     let mut calc = Calculator::new();
 
     // Initial state check
-    assert_eq!(calc.current_value, 0.0);
-    assert_eq!(calc.stored_value, None);
-    assert_eq!(calc.current_operation, None);
-    assert!(!calc.has_decimal);
-    assert_eq!(calc.decimal_place, 1);
+    assert_eq!(calc.current_value(), 0.0);
+    assert_eq!(calc.stored_value(), None);
+    assert_eq!(calc.current_operation(), None);
+    assert!(!calc.has_decimal());
+    assert_eq!(calc.decimal_place(), 1);
 
     // Input a digit and operation
     calc.input_digit(5);
     calc.input_operation(Operation::Add);
 
     // After operation is input, stored_value should be set and current_value reset
-    assert_eq!(calc.current_operation, Some(Operation::Add));
-    assert_eq!(calc.stored_value, Some(5.0));
-    assert_eq!(calc.current_value, 0.0);
+    assert_eq!(calc.current_operation(), Some(Operation::Add));
+    assert_eq!(calc.stored_value(), Some(5.0));
+    assert_eq!(calc.current_value(), 0.0);
 
     // Input another digit and operation
     calc.input_digit(3);
     calc.input_operation(Operation::Subtract);
 
     // After second operation, stored_value should be the result of the first operation
-    assert_eq!(calc.current_operation, Some(Operation::Subtract));
-    assert_eq!(calc.stored_value, Some(3.0));
-    assert_eq!(calc.current_value, 0.0);
+    assert_eq!(calc.current_operation(), Some(Operation::Subtract));
+    assert_eq!(calc.stored_value(), Some(3.0));
+    assert_eq!(calc.current_value(), 0.0);
 
     // Input another digit and operation
     calc.input_digit(2);
     calc.input_operation(Operation::Multiply);
 
     // After third operation, stored_value should be the result of the second operation
-    assert_eq!(calc.current_operation, Some(Operation::Multiply));
-    assert_eq!(calc.stored_value, Some(2.0));
-    assert_eq!(calc.current_value, 0.0);
+    assert_eq!(calc.current_operation(), Some(Operation::Multiply));
+    assert_eq!(calc.stored_value(), Some(2.0));
+    assert_eq!(calc.current_value(), 0.0);
 
     // Input another digit and operation
     calc.input_digit(4);
     calc.input_operation(Operation::Divide);
 
     // After fourth operation, stored_value should be the result of the third operation
-    assert_eq!(calc.current_operation, Some(Operation::Divide));
-    assert_eq!(calc.stored_value, Some(4.0));
-    assert_eq!(calc.current_value, 0.0);
+    assert_eq!(calc.current_operation(), Some(Operation::Divide));
+    assert_eq!(calc.stored_value(), Some(4.0));
+    assert_eq!(calc.current_value(), 0.0);
 }
 
 #[wasm_bindgen_test]
@@ -141,14 +141,14 @@ fn test_operation_reset() {
     // Reset after input
     calc.input_digit(5);
     calc.reset();
-    assert_eq!(calc.current_value, 0.0);
+    assert_eq!(calc.current_value(), 0.0);
 
     // Reset after multiple inputs
     calc.input_digit(5);
     calc.input_operation(Operation::Add);
     calc.input_digit(3);
     calc.reset();
-    assert_eq!(calc.current_value, 0.0);
+    assert_eq!(calc.current_value(), 0.0);
 
     // Reset after operation
     calc.input_digit(5);
@@ -156,13 +156,13 @@ fn test_operation_reset() {
     calc.input_digit(3);
     calc.calculate();
     calc.reset();
-    assert_eq!(calc.current_value, 0.0);
+    assert_eq!(calc.current_value(), 0.0);
 
-    assert_eq!(calc.current_value, 0.0);
-    assert_eq!(calc.stored_value, None);
-    assert_eq!(calc.current_operation, None);
-    assert!(!calc.has_decimal);
-    assert_eq!(calc.decimal_place, 1);
+    assert_eq!(calc.current_value(), 0.0);
+    assert_eq!(calc.stored_value(), None);
+    assert_eq!(calc.current_operation(), None);
+    assert!(!calc.has_decimal());
+    assert_eq!(calc.decimal_place(), 1);
 }
 
 #[wasm_bindgen_test]
