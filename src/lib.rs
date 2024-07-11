@@ -1,6 +1,6 @@
 pub mod utils;
 
-use crate::utils::operations::Operation;
+use utils::operations::Operation;
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
@@ -15,7 +15,7 @@ pub struct Calculator {
 
 impl Calculator {
     pub fn new() -> Self {
-        // utils::console::set_panic_hook();
+        utils::console::set_panic_hook();
 
         Calculator {
             current_value: 0.0,
@@ -32,7 +32,7 @@ impl Calculator {
         if let (Some(stored_value), Some(operation)) =
             (self.stored_value, self.current_operation)
         {
-            match operation {
+            let result = match operation {
                 Add => Some(stored_value + self.current_value),
                 Subtract => Some(stored_value - self.current_value),
                 Multiply => Some(stored_value * self.current_value),
@@ -43,21 +43,23 @@ impl Calculator {
                         None // Handle division by zero
                     }
                 },
-            }
+            };
+
+            self.stored_value = result;
+            self.current_value = 0.0;
+            self.has_decimal = false;
+            self.current_operation = None;
+
+            result
         } else {
             None
         }
     }
-    pub fn input_operation(&mut self, operation: Operation) {
-        if self.stored_value.is_some() && self.current_operation.is_some() {
-            self.calculate();
-        }
 
+    pub fn input_operation(&mut self, operation: Operation) {
+        self.current_operation = Some(operation);
         self.stored_value = Some(self.current_value);
         self.current_value = 0.0;
-        self.has_decimal = false;
-        self.decimal_place = 1;
-        self.current_operation = Some(operation);
     }
 
     pub fn input_digit(&mut self, digit: u8) {
