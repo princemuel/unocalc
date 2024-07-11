@@ -1,10 +1,10 @@
 [package]
-  name = "lendycalc"
+  name = "unocalc"
   version = "0.2.0"
   authors = ["Prince Muel <vansomecsam@gmail.com>"]
   edition = "2021"
   description = "Yet another calculator webapp built with Rust and Web Assembly"
-  repository = "https://github.com/princemuel/lendycalc"
+  repository = "https://github.com/princemuel/unocalc"
   license = "MIT"
   publish = false
 

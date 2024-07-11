@@ -1,4 +1,4 @@
-# Lendy Calc
+# Uno Calc
 
 Yet another calculator app with Light-Neon-Dark themes
 
