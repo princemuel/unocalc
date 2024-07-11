@@ -165,27 +165,27 @@ fn test_operation_reset() {
     assert_eq!(calc.decimal_place, 1);
 }
 
-// #[wasm_bindgen_test]
-// fn test_calculate() {
-//     let mut calc = Calculator::new();
+#[wasm_bindgen_test]
+fn test_calculate() {
+    let mut calc = Calculator::new();
 
-//     calc.input_digit(5);
-//     calc.input_operation(Operation::Add);
-//     calc.input_digit(3);
-//     assert_eq!(calc.calculate(), Some(8.0));
+    calc.input_digit(5);
+    calc.input_operation(Operation::Add);
+    calc.input_digit(3);
+    assert_eq!(calc.calculate(), Some(8.0));
 
-//     calc.input_operation(Operation::Subtract);
-//     calc.input_digit(2);
-//     assert_eq!(calc.calculate(), Some(6.0));
+    calc.input_operation(Operation::Subtract);
+    calc.input_digit(2);
+    assert_eq!(calc.calculate(), Some(6.0));
 
-//     calc.input_operation(Operation::Multiply);
-//     calc.input_digit(2);
-//     assert_eq!(calc.calculate(), Some(12.0));
+    calc.input_operation(Operation::Multiply);
+    calc.input_digit(2);
+    assert_eq!(calc.calculate(), Some(12.0));
 
-//     calc.input_operation(Operation::Divide);
-//     calc.input_digit(4);
-//     assert_eq!(calc.calculate(), Some(3.0));
-// }
+    calc.input_operation(Operation::Divide);
+    calc.input_digit(4);
+    assert_eq!(calc.calculate(), Some(3.0));
+}
 
 // Math Operation Tests *****/
 #[wasm_bindgen_test]
@@ -235,17 +235,3 @@ fn test_operation_division() {
     calc.input_digit(0);
     assert_eq!(calc.calculate(), None);
 }
-// /*****************  Math Operation Tests *****************/
-// #[wasm_bindgen_test]
-// fn test_input_operation() {
-//     let mut calc = Calculator::new();
-
-//     calc.input_digit(5);
-//     calc.input_operation(Operation::Add);
-//     calc.input_digit(3);
-//     assert_eq!(calc.calculate(), Some(8.0));
-
-//     calc.input_operation(Operation::Multiply);
-//     calc.input_digit(2);
-//     assert_eq!(calc.calculate(), Some(16.0));
-// }

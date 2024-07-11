@@ -29,34 +29,37 @@ impl Calculator {
     pub fn calculate(&mut self) -> Option<f64> {
         use Operation::*;
 
-        if let (Some(stored_value), Some(operation)) =
-            (self.stored_value, self.current_operation)
-        {
-            let result = match operation {
-                Add => Some(stored_value + self.current_value),
-                Subtract => Some(stored_value - self.current_value),
-                Multiply => Some(stored_value * self.current_value),
-                Divide => {
-                    if self.current_value != 0.0 {
-                        Some(stored_value / self.current_value)
-                    } else {
-                        None // Handle division by zero
-                    }
-                },
-            };
+        if let Some(operation) = self.current_operation {
+            if let Some(stored_value) = self.stored_value {
+                self.current_value = match operation {
+                    Add => stored_value + self.current_value,
+                    Subtract => stored_value - self.current_value,
+                    Multiply => stored_value * self.current_value,
+                    Divide => {
+                        if self.current_value != 0.0 {
+                            stored_value / self.current_value
+                        } else {
+                            return None; // Cannot divide by zero
+                        }
+                    },
+                };
 
-            self.stored_value = result;
-            self.current_value = 0.0;
-            self.has_decimal = false;
-            self.current_operation = None;
+                // Store the result for the next operation
+                self.stored_value = Some(self.current_value);
+                self.current_operation = None;
+                self.has_decimal = false;
+                self.decimal_place = 1;
 
-            result
-        } else {
-            None
+                return Some(self.current_value);
+            }
         }
+        None
     }
 
     pub fn input_operation(&mut self, operation: Operation) {
+        // if self.current_operation.is_some() {
+        //     self.calculate(); // iterative calc
+        // }
         self.current_operation = Some(operation);
         self.stored_value = Some(self.current_value);
         self.current_value = 0.0;
