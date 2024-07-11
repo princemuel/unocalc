@@ -54,6 +54,38 @@ fn test_input_decimal() {
     assert_eq!(calc.current_value, 5.374);
 }
 
+#[cfg(test)]
+#[wasm_bindgen_test]
+fn test_delete_last_digit() {
+    let mut calc = Calculator::new();
+
+    // Delete last digit from a single-digit number
+    calc.input_digit(5);
+    calc.delete_last_digit();
+    assert_eq!(calc.current_value, 0.0);
+
+    // Delete last digit from a multi-digit number
+    calc.input_digit(1);
+    calc.input_digit(2);
+    calc.input_digit(3);
+    calc.delete_last_digit();
+    assert_eq!(calc.current_value, 12.0);
+
+    // Delete last digit after decimal point
+    calc.input_decimal();
+    calc.input_digit(5);
+    calc.delete_last_digit();
+    assert_eq!(calc.current_value, 12.0); // Should maintain the integer part
+
+    calc.delete_last_digit();
+    calc.delete_last_digit();
+    assert_eq!(calc.current_value, 0.0);
+
+    // Delete when current value is already zero
+    calc.delete_last_digit();
+    assert_eq!(calc.current_value, 0.0); // Should remain zero
+}
+
 // /*****************  Math Operation Tests *****************/
 // #[wasm_bindgen_test]
 // fn test_calculator_addition() {
@@ -162,31 +194,4 @@ fn test_input_decimal() {
 //     assert_eq!(calc.current_value, 0.0);
 //     assert_eq!(calc.stored_value, None);
 //     assert_eq!(calc.current_operation, None);
-// }
-
-// #[test]
-// fn test_delete_last_digit() {
-//     let mut calc = Calculator::new();
-
-//     // Delete last digit from a single-digit number
-//     calc.input_digit(5);
-//     calc.delete_last_digit();
-//     assert_eq!(calc.current_value, 0.0);
-
-//     // Delete last digit from a multi-digit number
-//     calc.input_digit(1);
-//     calc.input_digit(2);
-//     calc.input_digit(3);
-//     calc.delete_last_digit();
-//     assert_eq!(calc.current_value, 12.0);
-
-//     // Delete last digit after decimal point
-//     calc.input_decimal();
-//     calc.input_digit(5);
-//     calc.delete_last_digit();
-//     assert_eq!(calc.current_value, 12.0); // Should maintain the integer part
-
-//     // Delete when current value is already zero
-//     calc.delete_last_digit();
-//     assert_eq!(calc.current_value, 0.0); // Should remain zero
 // }

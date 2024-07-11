@@ -88,23 +88,20 @@ impl Calculator {
     }
 
     pub fn delete_last_digit(&mut self) {
-        // Convert current_value to string to handle both integer and floating-point numbers
-        let current_value = self.current_value.to_string();
+        if self.has_decimal {
+            // Handle the case where the number has a decimal point
+            let mut current_value = self.current_value.to_string();
+            if let Some(index_of_dot) = current_value.find('.') {
+                current_value = current_value[..index_of_dot].to_string();
 
-        // Determine the new value after deleting the last digit
-        if current_value.len() > 1 {
-            // If there are multiple characters, remove the last one
-            let new_value =
-                current_value[..current_value.len() - 1].to_string();
-            self.current_value = new_value.parse().unwrap_or(0.0); // Parse back to f64
+                self.current_value =
+                    current_value.parse::<f64>().unwrap_or(0.0);
+
+                self.has_decimal = false;
+            }
         } else {
-            // If there's only one character left, set current_value to 0.0
-            self.current_value = 0.0;
-        }
-
-        // Handle case where current_value was zero and input had decimal flag set
-        if self.current_value == 0.0 && self.has_decimal {
-            self.has_decimal = false; // Reset decimal flag if current_value becomes zero
+            // Handle the case where the number is an integer
+            self.current_value = (self.current_value / 10.0).floor();
         }
     }
 }
