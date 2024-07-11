@@ -86,6 +86,37 @@ fn test_delete_last_digit() {
     assert_eq!(calc.current_value, 0.0); // Should remain zero
 }
 
+#[wasm_bindgen_test]
+fn test_calculator_reset() {
+    let mut calc = Calculator::new();
+
+    // Reset after input
+    calc.input_digit(5);
+    calc.reset();
+    assert_eq!(calc.current_value, 0.0);
+
+    // Reset after multiple inputs
+    calc.input_digit(5);
+    calc.input_operation(Operation::Add);
+    calc.input_digit(3);
+    calc.reset();
+    assert_eq!(calc.current_value, 0.0);
+
+    // Reset after operation
+    calc.input_digit(5);
+    calc.input_operation(Operation::Add);
+    calc.input_digit(3);
+    calc.calculate();
+    calc.reset();
+    assert_eq!(calc.current_value, 0.0);
+
+    assert_eq!(calc.current_value, 0.0);
+    assert_eq!(calc.stored_value, None);
+    assert_eq!(calc.current_operation, None);
+    assert_eq!(calc.has_decimal, false);
+    assert_eq!(calc.decimal_place, 1);
+}
+
 // /*****************  Math Operation Tests *****************/
 // #[wasm_bindgen_test]
 // fn test_calculator_addition() {
@@ -166,32 +197,4 @@ fn test_delete_last_digit() {
 //     calc.input_operation(Operation::Divide);
 //     calc.input_digit(4);
 //     assert_eq!(calc.calculate(), Some(3.0));
-// }
-
-// #[wasm_bindgen_test]
-// fn test_calculator_reset() {
-//     let mut calc = Calculator::new();
-
-//     // Reset after input
-//     calc.input_digit(5);
-//     calc.reset();
-//     assert_eq!(calc.current_value, 0.0);
-
-//     // Reset after multiple inputs
-//     calc.input_digit(5);
-//     calc.input_operation(Operation::Add);
-//     calc.input_digit(3);
-//     assert_eq!(calc.current_value, 0.0);
-
-//     // Reset after operation
-//     calc.input_digit(5);
-//     calc.input_operation(Operation::Add);
-//     calc.input_digit(3);
-//     calc.calculate();
-//     calc.reset();
-//     assert_eq!(calc.current_value, 0.0);
-
-//     assert_eq!(calc.current_value, 0.0);
-//     assert_eq!(calc.stored_value, None);
-//     assert_eq!(calc.current_operation, None);
 // }
