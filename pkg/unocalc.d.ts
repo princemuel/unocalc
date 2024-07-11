@@ -13,6 +13,35 @@ export enum Operation {
 export class Calculator {
   free(): void;
 /**
+* @returns {Calculator}
+*/
+  static new(): Calculator;
+/**
+* @returns {boolean}
+*/
+  has_decimal(): boolean;
+/**
+* @returns {number | undefined}
+*/
+  calculate(): number | undefined;
+/**
+* @param {Operation} operation
+*/
+  input_operation(operation: Operation): void;
+/**
+* @param {number} digit
+*/
+  input_digit(digit: number): void;
+/**
+*/
+  input_decimal(): void;
+/**
+*/
+  reset(): void;
+/**
+*/
+  delete_last_digit(): void;
+/**
 */
   current_operation?: Operation;
 /**
@@ -21,9 +50,6 @@ export class Calculator {
 /**
 */
   decimal_place: number;
-/**
-*/
-  has_decimal: boolean;
 /**
 */
   stored_value?: number;
