@@ -6,15 +6,16 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 #[derive(Default)]
 pub struct Calculator {
-    pub current_value: f64,
-    pub stored_value: Option<f64>,
-    pub current_operation: Option<Operation>,
-    pub has_decimal: bool,
-    pub decimal_place: u8,
+    current_value: f64,
+    stored_value: Option<f64>,
+    current_operation: Option<Operation>,
+    has_decimal: bool,
+    decimal_place: u8,
 }
 
+#[wasm_bindgen]
 impl Calculator {
-    pub fn new() -> Self {
+    pub fn new() -> Calculator {
         utils::console::set_panic_hook();
 
         Calculator {
@@ -24,6 +25,23 @@ impl Calculator {
             has_decimal: false, // Initialize to false since no decimal has been entered
             decimal_place: 1,
         }
+    }
+
+    // Getters
+    pub fn current_value(&self) -> f64 {
+        self.current_value
+    }
+    pub fn stored_value(&self) -> Option<f64> {
+        self.stored_value
+    }
+    pub fn current_operation(&self) -> Option<Operation> {
+        self.current_operation
+    }
+    pub fn has_decimal(&self) -> bool {
+        self.has_decimal
+    }
+    pub fn decimal_place(&self) -> u8 {
+        self.decimal_place
     }
 
     pub fn calculate(&mut self) -> Option<f64> {
