@@ -8,8 +8,3 @@ export enum Operation {
   Multiply = 2,
   Divide = 3,
 }
-/**
-*/
-export class Calculator {
-  free(): void;
-}

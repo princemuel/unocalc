@@ -1,5 +1,5 @@
 {
-  "name": "lendycalc",
+  "name": "unocalc",
   "collaborators": [
     "Prince Muel <vansomecsam@gmail.com>"
   ],
@@ -8,19 +8,19 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/princemuel/lendycalc"
+    "url": "https://github.com/princemuel/unocalc"
   },
   "files": [
-    "lendycalc_bg.wasm",
-    "lendycalc.js",
-    "lendycalc_bg.js",
-    "lendycalc.d.ts",
+    "unocalc_bg.wasm",
+    "unocalc.js",
+    "unocalc_bg.js",
+    "unocalc.d.ts",
     "LICENSE.txt"
   ],
-  "module": "lendycalc.js",
-  "types": "lendycalc.d.ts",
+  "module": "unocalc.js",
+  "types": "unocalc.d.ts",
   "sideEffects": [
-    "./lendycalc.js",
+    "./unocalc.js",
     "./snippets/*"
   ]
 }
