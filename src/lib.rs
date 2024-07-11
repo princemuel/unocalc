@@ -10,16 +10,19 @@ pub struct Calculator {
     pub stored_value: Option<f64>,
     pub current_operation: Option<Operation>,
     pub has_decimal: bool,
+    pub decimal_place: u8,
 }
 
 impl Calculator {
     pub fn new() -> Self {
-        utils::console::set_panic_hook();
+        // utils::console::set_panic_hook();
+
         Calculator {
             current_value: 0.0,
             stored_value: None,
             current_operation: None,
             has_decimal: false, // Initialize to false since no decimal has been entered
+            decimal_place: 1,
         }
     }
 
@@ -53,22 +56,26 @@ impl Calculator {
         self.stored_value = Some(self.current_value);
         self.current_value = 0.0;
         self.has_decimal = false;
-
+        self.decimal_place = 1;
         self.current_operation = Some(operation);
     }
 
     pub fn input_digit(&mut self, digit: u8) {
         if self.has_decimal {
-            self.current_value += digit as f64 * 0.1;
+            self.current_value +=
+                digit as f64 / 10f64.powi(self.decimal_place as i32);
+            self.decimal_place += 1;
         } else if self.current_value == 0.0 {
             self.current_value = digit as f64;
         } else {
             self.current_value = self.current_value * 10.0 + digit as f64;
         }
     }
+
     pub fn input_decimal(&mut self) {
         if !self.has_decimal {
             self.has_decimal = true;
+            self.decimal_place = 1;
         }
     }
 
@@ -77,10 +84,9 @@ impl Calculator {
         self.stored_value = None;
         self.current_operation = None;
         self.has_decimal = false;
+        self.decimal_place = 1;
     }
-    // pub fn delete_last_digit(&mut self) {
-    //     self.current_value = (self.current_value / 10.0).floor();
-    // }
+
     pub fn delete_last_digit(&mut self) {
         // Convert current_value to string to handle both integer and floating-point numbers
         let current_value = self.current_value.to_string();
