@@ -13,7 +13,7 @@ export default {
           ...defaultTheme.fontFamily.sans,
         ],
       },
-      ...twConfig.theme.cursor,
+      cursor: twConfig.theme.cursor,
     },
   },
   plugins: [],

@@ -3,10 +3,10 @@ use wasm_bindgen::prelude::wasm_bindgen;
 #[wasm_bindgen]
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub enum Operation {
-    Add,
-    Subtract,
-    Multiply,
-    Divide,
+    Add = 1,
+    Subtract = 2,
+    Multiply = 3,
+    Divide = 4,
 }
 
 impl Operation {
@@ -15,7 +15,7 @@ impl Operation {
         match value {
             '+' => Some(Add),
             '-' => Some(Subtract),
-            '*' => Some(Multiply),
+            'x' => Some(Multiply),
             '/' => Some(Divide),
             _ => None,
         }

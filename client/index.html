@@ -19,14 +19,208 @@
       }
     </style>
   </head>
-  <body class="antialiased font-sans text-slate-200 font-medium bg-slate-900">
-    <div class="flex items-center min-h-svh w-full px-6">
-      <main
-        class="max-w-xl w-full mx-auto px-4 py-8 md:px-6 bg-slate-800 rounded-lg"
-      >
-        <h1 class="text-2xl text-white">Uno Calc</h1>
-      </main>
-    </div>
+  <body class="antialiased font-sans">
+    <main class="w-full max-w-sm mx-auto mt-24">
+      <section class="grid grid-rows-[1fr_1fr_4fr] border">
+        <header class="flex items-center justify-between pt-4">
+          <div class="pl-4">
+            <h1 class="font-bold text-3xl">unocalc</h1>
+          </div>
+
+          <div class="flex items-center gap-4">
+            <p>Theme</p>
+            <div>
+              <button type="button" data-keytype="" data-id=""></button>
+              <button type="button" data-keytype="" data-id=""></button>
+              <button type="button" data-keytype="" data-id=""></button>
+            </div>
+          </div>
+        </header>
+
+        <section class="grid items-center p-4">
+          <output
+            name="result"
+            id="result"
+            form="keypad"
+            class="text-5xl text-right font-bold"
+            >0</output
+          >
+        </section>
+
+        <form
+          id="keypad"
+          class="grid grid-cols-4 gap-4 p-4 text-2xl [grid-template-areas:'seven_eight_nine_delete''four_five_six_plus''one_two_three_minus''decimal_zero_divide_times''reset_reset_equal_equal']"
+        >
+          <button
+            type="button"
+            name="seven"
+            data-keytype="number"
+            data-id="seven"
+            class="cursor-pointer border px-3 py-2"
+          >
+            7
+          </button>
+          <button
+            type="button"
+            name="eight"
+            data-keytype="number"
+            data-id="eight"
+            class="cursor-pointer border px-3 py-2"
+          >
+            8
+          </button>
+          <button
+            type="button"
+            name="nine"
+            data-keytype="number"
+            data-id="nine"
+            class="cursor-pointer border px-3 py-2"
+          >
+            9
+          </button>
+          <button
+            type="button"
+            name="delete"
+            data-keytype="delete"
+            data-id="delete"
+            class="cursor-pointer border px-3 py-2"
+          >
+            DEL
+          </button>
+
+          <button
+            type="button"
+            name="four"
+            data-keytype="number"
+            data-id="four"
+            class="cursor-pointer border px-3 py-2"
+          >
+            4
+          </button>
+          <button
+            type="button"
+            name="five"
+            data-keytype="number"
+            data-id="five"
+            class="cursor-pointer border px-3 py-2"
+          >
+            5
+          </button>
+          <button
+            type="button"
+            name="six"
+            data-keytype="number"
+            data-id="six"
+            class="cursor-pointer border px-3 py-2"
+          >
+            6
+          </button>
+          <button
+            type="button"
+            name="plus"
+            data-keytype="operator"
+            data-id="plus"
+            class="cursor-pointer border px-3 py-2"
+          >
+            +
+          </button>
+
+          <button
+            type="button"
+            name="one"
+            data-keytype="number"
+            data-id="one"
+            class="cursor-pointer border px-3 py-2"
+          >
+            1
+          </button>
+          <button
+            type="button"
+            name="two"
+            data-keytype="number"
+            data-id="two"
+            class="cursor-pointer border px-3 py-2"
+          >
+            2
+          </button>
+          <button
+            type="button"
+            name="three"
+            data-keytype="number"
+            data-id="three"
+            class="cursor-pointer border px-3 py-2"
+          >
+            3
+          </button>
+          <button
+            type="button"
+            name="minus"
+            data-keytype="operator"
+            data-id="minus"
+            class="cursor-pointer border px-3 py-2"
+          >
+            -
+          </button>
+
+          <button
+            type="button"
+            name="decimal"
+            data-keytype="decimal"
+            data-id="decimal"
+            class="cursor-pointer border px-3 py-2"
+          >
+            .
+          </button>
+          <button
+            type="button"
+            name="zero"
+            data-keytype="number"
+            data-id="zero"
+            class="cursor-pointer border px-3 py-2"
+          >
+            0
+          </button>
+          <button
+            type="button"
+            name="divide"
+            data-keytype="operator"
+            data-id="divide"
+            class="cursor-pointer border px-3 py-2"
+          >
+            /
+          </button>
+          <button
+            type="button"
+            name="times"
+            data-keytype="operator"
+            data-id="times"
+            class="cursor-pointer border px-3 py-2"
+          >
+            x
+          </button>
+
+          <button
+            type="button"
+            name="reset"
+            data-keytype="reset"
+            data-id="reset"
+            class="cursor-pointer border px-3 py-2 [grid-area:reset]"
+          >
+            RESET
+          </button>
+
+          <button
+            type="button"
+            name="equals"
+            data-keytype="equals"
+            data-id="equals"
+            class="cursor-pointer border px-3 py-2 [grid-area:equal]"
+          >
+            =
+          </button>
+        </form>
+      </section>
+    </main>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

@@ -3,28 +3,58 @@
 /**
 */
 export enum Operation {
-  Add = 0,
-  Subtract = 1,
-  Multiply = 2,
-  Divide = 3,
+  Add = 1,
+  Subtract = 2,
+  Multiply = 3,
+  Divide = 4,
 }
 /**
 */
 export class Calculator {
   free(): void;
 /**
+* @returns {Calculator}
 */
-  current_operation?: Operation;
+  static new(): Calculator;
+/**
+* @returns {number}
+*/
+  current_value(): number;
+/**
+* @returns {number | undefined}
+*/
+  stored_value(): number | undefined;
+/**
+* @returns {Operation | undefined}
+*/
+  current_operation(): Operation | undefined;
+/**
+* @returns {boolean}
+*/
+  has_decimal(): boolean;
+/**
+* @returns {number}
+*/
+  decimal_place(): number;
+/**
+* @returns {number | undefined}
+*/
+  calculate(): number | undefined;
+/**
+* @param {Operation} operation
+*/
+  input_operation(operation: Operation): void;
+/**
+* @param {number} digit
+*/
+  input_digit(digit: number): void;
 /**
 */
-  current_value: number;
+  input_decimal(): void;
 /**
 */
-  decimal_place: number;
+  reset(): void;
 /**
 */
-  has_decimal: boolean;
-/**
-*/
-  stored_value?: number;
+  delete_last_digit(): void;
 }
