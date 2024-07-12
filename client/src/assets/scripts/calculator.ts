@@ -12,6 +12,7 @@ const operations = new Map([
 ]) satisfies Map<string, Operation>;
 
 const form = getElement("#keypad", HTMLFormElement);
+const output = getElement("#result", HTMLOutputElement);
 
 form.addEventListener("click", (e) => {
   const key = e.target;
@@ -38,20 +39,6 @@ form.addEventListener("click", (e) => {
     console.log("current_operation", calculator.current_operation());
     console.log("current_value", calculator.current_value());
     console.log("decimal_place", calculator.decimal_place());
+    output.textContent = calculator.current_value().toString();
   }
 });
-
-// console.log(calculator);
-
-// const keys = getElements("[data-id]", HTMLButtonElement, form);
-
-// function get_operator(operator: string) {
-//   switch (operator) {
-//     case "+":
-
-//       break;
-
-//     default:
-//       break;
-//   }
-// }
