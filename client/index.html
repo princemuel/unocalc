@@ -20,146 +20,186 @@
     </style>
   </head>
   <body class="antialiased font-sans">
-    <main class="w-full max-w-lg mx-auto">
-      <h1>Calc</h1>
-      <p>Theme</p>
+    <main class="w-full max-w-sm mx-auto mt-24">
+      <section class="grid grid-rows-[1fr_1fr_4fr] border">
+        <header class="flex items-center justify-between pt-4">
+          <div class="pl-4">
+            <h1 class="font-bold text-3xl">unocalc</h1>
+          </div>
 
-      <section></section>
+          <div class="flex items-center gap-4">
+            <p>Theme</p>
+            <div>
+              <button type="button" data-id=""></button>
+              <button type="button" data-id=""></button>
+              <button type="button" data-id=""></button>
+            </div>
+          </div>
+        </header>
 
-      <section
-        class="grid grid-cols-4 gap-4 p-5 text-2xl [grid-template-areas:'seven_eight_nine_delete''four_five_six_plus''one_two_three_minus''decimal_zero_divide_times''reset_reset_equal_equal']"
-      >
-        <button
-          type="button"
-          data-id="seven"
-          class="cursor-pointer border px-3 py-2"
-        >
-          7
-        </button>
-        <button
-          type="button"
-          data-id="eight"
-          class="cursor-pointer border px-3 py-2"
-        >
-          8
-        </button>
-        <button
-          type="button"
-          data-id="nine"
-          class="cursor-pointer border px-3 py-2"
-        >
-          9
-        </button>
-        <button
-          type="button"
-          data-id="delete"
-          class="cursor-pointer border px-3 py-2"
-        >
-          Del
-        </button>
+        <section class="grid items-center p-4">
+          <output
+            name="result"
+            form="keypad"
+            class="text-5xl text-right font-bold"
+            >0.123</output
+          >
+        </section>
 
-        <button
-          type="button"
-          data-id="four"
-          class="cursor-pointer border px-3 py-2"
+        <form
+          id="keypad"
+          class="grid grid-cols-4 gap-4 p-4 text-2xl [grid-template-areas:'seven_eight_nine_delete''four_five_six_plus''one_two_three_minus''decimal_zero_divide_times''reset_reset_equal_equal']"
         >
-          4
-        </button>
-        <button
-          type="button"
-          data-id="five"
-          class="cursor-pointer border px-3 py-2"
-        >
-          5
-        </button>
-        <button
-          type="button"
-          data-id="six"
-          class="cursor-pointer border px-3 py-2"
-        >
-          6
-        </button>
-        <button
-          type="button"
-          data-id="plus"
-          class="cursor-pointer border px-3 py-2"
-        >
-          +
-        </button>
+          <button
+            type="button"
+            name="seven"
+            data-id="seven"
+            class="cursor-pointer border px-3 py-2"
+          >
+            7
+          </button>
+          <button
+            type="button"
+            name="eight"
+            data-id="eight"
+            class="cursor-pointer border px-3 py-2"
+          >
+            8
+          </button>
+          <button
+            type="button"
+            name="nine"
+            data-id="nine"
+            class="cursor-pointer border px-3 py-2"
+          >
+            9
+          </button>
+          <button
+            type="button"
+            name="delete"
+            data-id="delete"
+            class="cursor-pointer border px-3 py-2"
+          >
+            DEL
+          </button>
 
-        <button
-          type="button"
-          data-id="one"
-          class="cursor-pointer border px-3 py-2"
-        >
-          1
-        </button>
-        <button
-          type="button"
-          data-id="two"
-          class="cursor-pointer border px-3 py-2"
-        >
-          2
-        </button>
-        <button
-          type="button"
-          data-id="three"
-          class="cursor-pointer border px-3 py-2"
-        >
-          3
-        </button>
-        <button
-          type="button"
-          data-id="minus"
-          class="cursor-pointer border px-3 py-2"
-        >
-          -
-        </button>
+          <button
+            type="button"
+            name="four"
+            data-id="four"
+            class="cursor-pointer border px-3 py-2"
+          >
+            4
+          </button>
+          <button
+            type="button"
+            name="five"
+            data-id="five"
+            class="cursor-pointer border px-3 py-2"
+          >
+            5
+          </button>
+          <button
+            type="button"
+            name="six"
+            data-id="six"
+            class="cursor-pointer border px-3 py-2"
+          >
+            6
+          </button>
+          <button
+            type="button"
+            name="plus"
+            data-id="plus"
+            class="cursor-pointer border px-3 py-2"
+          >
+            +
+          </button>
 
-        <button
-          type="button"
-          data-id="decimal"
-          class="cursor-pointer border px-3 py-2"
-        >
-          .
-        </button>
-        <button
-          type="button"
-          data-id="zero"
-          class="cursor-pointer border px-3 py-2"
-        >
-          0
-        </button>
-        <button
-          type="button"
-          data-id="divide"
-          class="cursor-pointer border px-3 py-2"
-        >
-          /
-        </button>
-        <button
-          type="button"
-          data-id="times"
-          class="cursor-pointer border px-3 py-2"
-        >
-          x
-        </button>
+          <button
+            type="button"
+            name="one"
+            data-id="one"
+            class="cursor-pointer border px-3 py-2"
+          >
+            1
+          </button>
+          <button
+            type="button"
+            name="two"
+            data-id="two"
+            class="cursor-pointer border px-3 py-2"
+          >
+            2
+          </button>
+          <button
+            type="button"
+            name="three"
+            data-id="three"
+            class="cursor-pointer border px-3 py-2"
+          >
+            3
+          </button>
+          <button
+            type="button"
+            name="minus"
+            data-id="minus"
+            class="cursor-pointer border px-3 py-2"
+          >
+            -
+          </button>
 
-        <button
-          type="button"
-          data-id="reset"
-          class="cursor-pointer border px-3 py-2 [grid-area:reset]"
-        >
-          Reset
-        </button>
+          <button
+            type="button"
+            name="decimal"
+            data-id="decimal"
+            class="cursor-pointer border px-3 py-2"
+          >
+            .
+          </button>
+          <button
+            type="button"
+            name="zero"
+            data-id="zero"
+            class="cursor-pointer border px-3 py-2"
+          >
+            0
+          </button>
+          <button
+            type="button"
+            name="divide"
+            data-id="divide"
+            class="cursor-pointer border px-3 py-2"
+          >
+            /
+          </button>
+          <button
+            type="button"
+            name="times"
+            data-id="times"
+            class="cursor-pointer border px-3 py-2"
+          >
+            x
+          </button>
 
-        <button
-          type="button"
-          data-id="equals"
-          class="cursor-pointer border px-3 py-2 [grid-area:equal]"
-        >
-          =
-        </button>
+          <button
+            type="button"
+            name="reset"
+            data-id="reset"
+            class="cursor-pointer border px-3 py-2 [grid-area:reset]"
+          >
+            RESET
+          </button>
+
+          <button
+            type="button"
+            name="equals"
+            data-id="equals"
+            class="cursor-pointer border px-3 py-2 [grid-area:equal]"
+          >
+            =
+          </button>
+        </form>
       </section>
     </main>
     <script type="module" src="/src/main.ts"></script>
