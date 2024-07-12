@@ -76,7 +76,7 @@ impl Calculator {
 
     pub fn input_operation(&mut self, operation: Operation) {
         // if self.current_operation.is_some() {
-        //     self.calculate(); // iterative calc
+        //     self.calculate();
         // }
         self.current_operation = Some(operation);
         self.stored_value = Some(self.current_value);
