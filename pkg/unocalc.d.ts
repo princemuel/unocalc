@@ -3,10 +3,10 @@
 /**
 */
 export enum Operation {
-  Add = 0,
-  Subtract = 1,
-  Multiply = 2,
-  Divide = 3,
+  Add = 1,
+  Subtract = 2,
+  Multiply = 3,
+  Divide = 4,
 }
 /**
 */
@@ -17,9 +17,25 @@ export class Calculator {
 */
   static new(): Calculator;
 /**
+* @returns {number}
+*/
+  current_value(): number;
+/**
+* @returns {number | undefined}
+*/
+  stored_value(): number | undefined;
+/**
+* @returns {Operation | undefined}
+*/
+  current_operation(): Operation | undefined;
+/**
 * @returns {boolean}
 */
   has_decimal(): boolean;
+/**
+* @returns {number}
+*/
+  decimal_place(): number;
 /**
 * @returns {number | undefined}
 */
@@ -41,16 +57,4 @@ export class Calculator {
 /**
 */
   delete_last_digit(): void;
-/**
-*/
-  current_operation?: Operation;
-/**
-*/
-  current_value: number;
-/**
-*/
-  decimal_place: number;
-/**
-*/
-  stored_value?: number;
 }

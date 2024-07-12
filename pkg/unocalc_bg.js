@@ -62,10 +62,6 @@ function getFloat64Memory0() {
     return cachedFloat64Memory0;
 }
 
-function isLikeNone(x) {
-    return x === undefined || x === null;
-}
-
 function addHeapObject(obj) {
     if (heap_next === heap.length) heap.push(heap.length + 1);
     const idx = heap_next;
@@ -134,7 +130,7 @@ function passStringToWasm0(arg, malloc, realloc) {
 }
 /**
 */
-export const Operation = Object.freeze({ Add:0,"0":"Add",Subtract:1,"1":"Subtract",Multiply:2,"2":"Multiply",Divide:3,"3":"Divide", });
+export const Operation = Object.freeze({ Add:1,"1":"Add",Subtract:2,"2":"Subtract",Multiply:3,"3":"Multiply",Divide:4,"4":"Divide", });
 
 const CalculatorFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -163,25 +159,26 @@ export class Calculator {
         wasm.__wbg_calculator_free(ptr);
     }
     /**
-    * @returns {number}
+    * @returns {Calculator}
     */
-    get current_value() {
-        const ret = wasm.__wbg_get_calculator_current_value(this.__wbg_ptr);
-        return ret;
+    static new() {
+        const ret = wasm.calculator_new();
+        return Calculator.__wrap(ret);
     }
     /**
-    * @param {number} arg0
+    * @returns {number}
     */
-    set current_value(arg0) {
-        wasm.__wbg_set_calculator_current_value(this.__wbg_ptr, arg0);
+    current_value() {
+        const ret = wasm.calculator_current_value(this.__wbg_ptr);
+        return ret;
     }
     /**
     * @returns {number | undefined}
     */
-    get stored_value() {
+    stored_value() {
         try {
             const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
-            wasm.__wbg_get_calculator_stored_value(retptr, this.__wbg_ptr);
+            wasm.calculator_stored_value(retptr, this.__wbg_ptr);
             var r0 = getInt32Memory0()[retptr / 4 + 0];
             var r2 = getFloat64Memory0()[retptr / 8 + 1];
             return r0 === 0 ? undefined : r2;
@@ -190,43 +187,11 @@ export class Calculator {
         }
     }
     /**
-    * @param {number | undefined} [arg0]
-    */
-    set stored_value(arg0) {
-        wasm.__wbg_set_calculator_stored_value(this.__wbg_ptr, !isLikeNone(arg0), isLikeNone(arg0) ? 0 : arg0);
-    }
-    /**
     * @returns {Operation | undefined}
     */
-    get current_operation() {
-        const ret = wasm.__wbg_get_calculator_current_operation(this.__wbg_ptr);
-        return ret === 4 ? undefined : ret;
-    }
-    /**
-    * @param {Operation | undefined} [arg0]
-    */
-    set current_operation(arg0) {
-        wasm.__wbg_set_calculator_current_operation(this.__wbg_ptr, isLikeNone(arg0) ? 4 : arg0);
-    }
-    /**
-    * @returns {number}
-    */
-    get decimal_place() {
-        const ret = wasm.__wbg_get_calculator_decimal_place(this.__wbg_ptr);
-        return ret;
-    }
-    /**
-    * @param {number} arg0
-    */
-    set decimal_place(arg0) {
-        wasm.__wbg_set_calculator_decimal_place(this.__wbg_ptr, arg0);
-    }
-    /**
-    * @returns {Calculator}
-    */
-    static new() {
-        const ret = wasm.calculator_new();
-        return Calculator.__wrap(ret);
+    current_operation() {
+        const ret = wasm.calculator_current_operation(this.__wbg_ptr);
+        return ret === 5 ? undefined : ret;
     }
     /**
     * @returns {boolean}
@@ -234,6 +199,13 @@ export class Calculator {
     has_decimal() {
         const ret = wasm.calculator_has_decimal(this.__wbg_ptr);
         return ret !== 0;
+    }
+    /**
+    * @returns {number}
+    */
+    decimal_place() {
+        const ret = wasm.calculator_decimal_place(this.__wbg_ptr);
+        return ret;
     }
     /**
     * @returns {number | undefined}
