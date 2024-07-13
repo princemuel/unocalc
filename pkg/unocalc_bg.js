@@ -44,6 +44,10 @@ function getStringFromWasm0(ptr, len) {
     return cachedTextDecoder.decode(getUint8Memory0().subarray(ptr, ptr + len));
 }
 
+function _assertChar(c) {
+    if (typeof(c) === 'number' && (c >= 0x110000 || (c >= 0xD800 && c < 0xE000))) throw new Error(`expected a valid Unicode scalar value, found ${c}`);
+}
+
 let cachedInt32Memory0 = null;
 
 function getInt32Memory0() {
@@ -53,13 +57,24 @@ function getInt32Memory0() {
     return cachedInt32Memory0;
 }
 
-let cachedFloat64Memory0 = null;
+let cachedUint32Memory0 = null;
 
-function getFloat64Memory0() {
-    if (cachedFloat64Memory0 === null || cachedFloat64Memory0.byteLength === 0) {
-        cachedFloat64Memory0 = new Float64Array(wasm.memory.buffer);
+function getUint32Memory0() {
+    if (cachedUint32Memory0 === null || cachedUint32Memory0.byteLength === 0) {
+        cachedUint32Memory0 = new Uint32Array(wasm.memory.buffer);
     }
-    return cachedFloat64Memory0;
+    return cachedUint32Memory0;
+}
+
+function getArrayJsValueFromWasm0(ptr, len) {
+    ptr = ptr >>> 0;
+    const mem = getUint32Memory0();
+    const slice = mem.subarray(ptr / 4, ptr / 4 + len);
+    const result = [];
+    for (let i = 0; i < slice.length; i++) {
+        result.push(takeObject(slice[i]));
+    }
+    return result;
 }
 
 function addHeapObject(obj) {
@@ -166,25 +181,40 @@ export class Calculator {
         return Calculator.__wrap(ret);
     }
     /**
+    */
+    reset() {
+        wasm.calculator_reset(this.__wbg_ptr);
+    }
+    /**
+    */
+    backspace() {
+        wasm.calculator_backspace(this.__wbg_ptr);
+    }
+    /**
+    * @param {string} value
+    */
+    input_digit(value) {
+        const char0 = value.codePointAt(0);
+        _assertChar(char0);
+        wasm.calculator_input_digit(this.__wbg_ptr, char0);
+    }
+    /**
+    * @param {Operation} operation
+    */
+    set_operation(operation) {
+        wasm.calculator_set_operation(this.__wbg_ptr, operation);
+    }
+    /**
+    */
+    calculate() {
+        wasm.calculator_calculate(this.__wbg_ptr);
+    }
+    /**
     * @returns {number}
     */
     current_value() {
         const ret = wasm.calculator_current_value(this.__wbg_ptr);
         return ret;
-    }
-    /**
-    * @returns {number | undefined}
-    */
-    stored_value() {
-        try {
-            const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
-            wasm.calculator_stored_value(retptr, this.__wbg_ptr);
-            var r0 = getInt32Memory0()[retptr / 4 + 0];
-            var r2 = getFloat64Memory0()[retptr / 8 + 1];
-            return r0 === 0 ? undefined : r2;
-        } finally {
-            wasm.__wbindgen_add_to_stack_pointer(16);
-        }
     }
     /**
     * @returns {Operation | undefined}
@@ -194,64 +224,77 @@ export class Calculator {
         return ret === 5 ? undefined : ret;
     }
     /**
-    * @returns {boolean}
+    * @returns {string}
     */
-    has_decimal() {
-        const ret = wasm.calculator_has_decimal(this.__wbg_ptr);
-        return ret !== 0;
-    }
-    /**
-    * @returns {number}
-    */
-    decimal_place() {
-        const ret = wasm.calculator_decimal_place(this.__wbg_ptr);
-        return ret;
-    }
-    /**
-    * @returns {number | undefined}
-    */
-    calculate() {
+    input_buffer() {
+        let deferred1_0;
+        let deferred1_1;
         try {
             const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
-            wasm.calculator_calculate(retptr, this.__wbg_ptr);
+            wasm.calculator_input_buffer(retptr, this.__wbg_ptr);
             var r0 = getInt32Memory0()[retptr / 4 + 0];
-            var r2 = getFloat64Memory0()[retptr / 8 + 1];
-            return r0 === 0 ? undefined : r2;
+            var r1 = getInt32Memory0()[retptr / 4 + 1];
+            deferred1_0 = r0;
+            deferred1_1 = r1;
+            return getStringFromWasm0(r0, r1);
+        } finally {
+            wasm.__wbindgen_add_to_stack_pointer(16);
+            wasm.__wbindgen_free(deferred1_0, deferred1_1, 1);
+        }
+    }
+    /**
+    * @returns {(HistoryEntry)[]}
+    */
+    history() {
+        try {
+            const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
+            wasm.calculator_history(retptr, this.__wbg_ptr);
+            var r0 = getInt32Memory0()[retptr / 4 + 0];
+            var r1 = getInt32Memory0()[retptr / 4 + 1];
+            var v1 = getArrayJsValueFromWasm0(r0, r1).slice();
+            wasm.__wbindgen_free(r0, r1 * 4, 4);
+            return v1;
         } finally {
             wasm.__wbindgen_add_to_stack_pointer(16);
         }
     }
-    /**
-    * @param {Operation} operation
-    */
-    input_operation(operation) {
-        wasm.calculator_input_operation(this.__wbg_ptr, operation);
+}
+
+const HistoryEntryFinalization = (typeof FinalizationRegistry === 'undefined')
+    ? { register: () => {}, unregister: () => {} }
+    : new FinalizationRegistry(ptr => wasm.__wbg_historyentry_free(ptr >>> 0));
+/**
+*/
+export class HistoryEntry {
+
+    static __wrap(ptr) {
+        ptr = ptr >>> 0;
+        const obj = Object.create(HistoryEntry.prototype);
+        obj.__wbg_ptr = ptr;
+        HistoryEntryFinalization.register(obj, obj.__wbg_ptr, obj);
+        return obj;
     }
-    /**
-    * @param {number} digit
-    */
-    input_digit(digit) {
-        wasm.calculator_input_digit(this.__wbg_ptr, digit);
+
+    __destroy_into_raw() {
+        const ptr = this.__wbg_ptr;
+        this.__wbg_ptr = 0;
+        HistoryEntryFinalization.unregister(this);
+        return ptr;
     }
-    /**
-    */
-    input_decimal() {
-        wasm.calculator_input_decimal(this.__wbg_ptr);
-    }
-    /**
-    */
-    reset() {
-        wasm.calculator_reset(this.__wbg_ptr);
-    }
-    /**
-    */
-    delete_last_digit() {
-        wasm.calculator_delete_last_digit(this.__wbg_ptr);
+
+    free() {
+        const ptr = this.__destroy_into_raw();
+        wasm.__wbg_historyentry_free(ptr);
     }
 }
 
 export function __wbindgen_object_drop_ref(arg0) {
     takeObject(arg0);
+};
+
+export function __wbg_historyentry_new(arg0) {
+    const ret = HistoryEntry.__wrap(arg0);
+    return addHeapObject(ret);
 };
 
 export function __wbg_new_abda76e883ba8a5f() {

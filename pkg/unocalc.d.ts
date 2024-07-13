@@ -17,44 +17,41 @@ export class Calculator {
 */
   static new(): Calculator;
 /**
+*/
+  reset(): void;
+/**
+*/
+  backspace(): void;
+/**
+* @param {string} value
+*/
+  input_digit(value: string): void;
+/**
+* @param {Operation} operation
+*/
+  set_operation(operation: Operation): void;
+/**
+*/
+  calculate(): void;
+/**
 * @returns {number}
 */
   current_value(): number;
-/**
-* @returns {number | undefined}
-*/
-  stored_value(): number | undefined;
 /**
 * @returns {Operation | undefined}
 */
   current_operation(): Operation | undefined;
 /**
-* @returns {boolean}
+* @returns {string}
 */
-  has_decimal(): boolean;
+  input_buffer(): string;
 /**
-* @returns {number}
+* @returns {(HistoryEntry)[]}
 */
-  decimal_place(): number;
-/**
-* @returns {number | undefined}
-*/
-  calculate(): number | undefined;
-/**
-* @param {Operation} operation
-*/
-  input_operation(operation: Operation): void;
-/**
-* @param {number} digit
-*/
-  input_digit(digit: number): void;
+  history(): (HistoryEntry)[];
+}
 /**
 */
-  input_decimal(): void;
-/**
-*/
-  reset(): void;
-/**
-*/
-  delete_last_digit(): void;
+export class HistoryEntry {
+  free(): void;
 }
