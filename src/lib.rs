@@ -1,16 +1,15 @@
 pub mod utils;
 
-use utils::operations::Operation;
+use utils::types::{HistoryEntry, Operation};
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
 #[derive(Default)]
 pub struct Calculator {
     current_value: f64,
-    stored_value: Option<f64>,
     current_operation: Option<Operation>,
-    has_decimal: bool,
-    decimal_place: u8,
+    input_buffer: String,
+    history: Vec<HistoryEntry>,
 }
 
 #[wasm_bindgen]
@@ -20,10 +19,68 @@ impl Calculator {
 
         Calculator {
             current_value: 0.0,
-            stored_value: None,
             current_operation: None,
-            has_decimal: false, // Initialize to false since no decimal has been entered
-            decimal_place: 1,
+            input_buffer: String::new(),
+            history: Vec::new(),
+        }
+    }
+
+    pub fn reset(&mut self) {
+        self.current_value = 0.0;
+        self.current_operation = None;
+        self.input_buffer.clear();
+    }
+    pub fn backspace(&mut self) {
+        self.input_buffer.pop();
+    }
+
+    pub fn input_digit(&mut self, value: char) {
+        if value == '.' && self.input_buffer.contains('.') {
+            return; // Ignore additional decimal points if one is already present
+        }
+        self.input_buffer.push(value);
+    }
+    pub fn set_operation(&mut self, operation: Operation) {
+        if let Ok(value) = self.input_buffer.parse::<f64>() {
+            self.calculate_with_operand(value);
+        }
+        self.current_operation = Some(operation);
+        self.input_buffer.clear();
+    }
+
+    pub fn calculate(&mut self) {
+        if let Ok(value) = self.input_buffer.parse::<f64>() {
+            self.calculate_with_operand(value);
+            self.input_buffer.clear();
+        }
+        self.current_operation = None;
+    }
+
+    fn calculate_with_operand(&mut self, operand: f64) {
+        if let Some(operation) = self.current_operation {
+            use Operation::*;
+            let result = match operation {
+                Add => self.current_value + operand,
+                Subtract => self.current_value - operand,
+                Multiply => self.current_value * operand,
+                Divide => {
+                    if operand == 0.0 {
+                        0.0 // Return 0 if division by zero
+                    } else {
+                        self.current_value / operand
+                    }
+                },
+            };
+
+            self.history.push(HistoryEntry::new(
+                operation,
+                self.current_value,
+                Some(operand),
+                result,
+            ));
+            self.current_value = result;
+        } else {
+            self.current_value = operand;
         }
     }
 
@@ -31,100 +88,13 @@ impl Calculator {
     pub fn current_value(&self) -> f64 {
         self.current_value
     }
-    pub fn stored_value(&self) -> Option<f64> {
-        self.stored_value
-    }
     pub fn current_operation(&self) -> Option<Operation> {
         self.current_operation
     }
-    pub fn has_decimal(&self) -> bool {
-        self.has_decimal
+    pub fn input_buffer(&self) -> String {
+        self.input_buffer.clone()
     }
-    pub fn decimal_place(&self) -> u8 {
-        self.decimal_place
-    }
-
-    pub fn calculate(&mut self) -> Option<f64> {
-        use Operation::*;
-
-        if let Some(operation) = self.current_operation {
-            if let Some(stored_value) = self.stored_value {
-                self.current_value = match operation {
-                    Add => stored_value + self.current_value,
-                    Subtract => stored_value - self.current_value,
-                    Multiply => stored_value * self.current_value,
-                    Divide => {
-                        if self.current_value != 0.0 {
-                            stored_value / self.current_value
-                        } else {
-                            return None; // Cannot divide by zero
-                        }
-                    },
-                };
-
-                // Store the result for the next operation
-                self.stored_value = Some(self.current_value);
-                self.current_operation = None;
-                self.has_decimal = false;
-                self.decimal_place = 1;
-
-                return Some(self.current_value);
-            }
-        }
-        None
-    }
-
-    pub fn input_operation(&mut self, operation: Operation) {
-        // if self.current_operation.is_some() {
-        //     self.calculate();
-        // }
-        self.current_operation = Some(operation);
-        self.stored_value = Some(self.current_value);
-        self.current_value = 0.0;
-    }
-
-    pub fn input_digit(&mut self, digit: u8) {
-        if self.has_decimal {
-            self.current_value +=
-                digit as f64 / 10f64.powi(self.decimal_place as i32);
-            self.decimal_place += 1;
-        } else if self.current_value == 0.0 {
-            self.current_value = digit as f64;
-        } else {
-            self.current_value = self.current_value * 10.0 + digit as f64;
-        }
-    }
-
-    pub fn input_decimal(&mut self) {
-        if !self.has_decimal {
-            self.has_decimal = true;
-            self.decimal_place = 1;
-        }
-    }
-
-    pub fn reset(&mut self) {
-        self.current_value = 0.0;
-        self.stored_value = None;
-        self.current_operation = None;
-        self.has_decimal = false;
-        self.decimal_place = 1;
-    }
-
-    pub fn delete_last_digit(&mut self) {
-        if self.has_decimal {
-            // Handle the case where the number has a decimal point
-            let mut current_value = self.current_value.to_string();
-            if let Some(index_of_dot) = current_value.find('.') {
-                current_value = current_value[..index_of_dot].to_string();
-
-                self.current_value =
-                    current_value.parse::<f64>().unwrap_or(0.0);
-
-                self.has_decimal = false;
-            }
-        } else {
-            // Handle the case where the number is an integer
-            self.current_value = (self.current_value / 10.0).floor();
-        }
+    pub fn history(&self) -> Vec<HistoryEntry> {
+        self.history.clone()
     }
 }
