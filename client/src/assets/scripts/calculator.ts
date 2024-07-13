@@ -18,27 +18,27 @@ form.addEventListener("click", (e) => {
   const key = e.target;
 
   if (key instanceof HTMLButtonElement) {
-    if (key.dataset.keytype === "number") {
+    const key_type = key.dataset.type;
+
+    if (key_type === "number") {
       const operator = (key.textContent ?? "").trim().toLowerCase();
-      const digit = number_guard(operator);
-      calculator.input_digit(digit);
+      calculator.input_digit(operator);
     }
 
-    if (key.dataset.keytype === "operator") {
+    if (key_type === "operator") {
       const operator = (key.textContent ?? "").trim().toLowerCase();
       const operation = operations.get(operator);
-      if (operation) calculator.input_operation(operation);
+      if (operation) calculator.set_operation(operation);
     }
 
-    if (key.dataset.keytype === "decimal") calculator.input_decimal();
-    if (key.dataset.keytype === "delete") calculator.delete_last_digit();
-    if (key.dataset.keytype === "reset") calculator.reset();
-    if (key.dataset.keytype === "equals") calculator.calculate();
+    if (key_type === "decimal") calculator.input_digit(".");
+    if (key_type === "delete") calculator.backspace();
+    if (key_type === "reset") calculator.reset();
+    if (key_type === "equals") calculator.calculate();
 
-    console.log("stored_value", calculator.stored_value());
-    console.log("current_operation", calculator.current_operation());
-    console.log("current_value", calculator.current_value());
-    console.log("decimal_place", calculator.decimal_place());
-    output.textContent = calculator.current_value().toString();
+    const result = number_guard(
+      calculator.input_buffer() || calculator.current_value()
+    );
+    output.textContent = new Intl.NumberFormat().format(result);
   }
 });
