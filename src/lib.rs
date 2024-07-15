@@ -1,100 +1,113 @@
 pub mod utils;
 
-use utils::types::{HistoryEntry, Operation};
+use utils::operation::Operation;
 use wasm_bindgen::prelude::*;
+
+extern crate web_sys;
+
+// web_sys::console::error_1()
+// web_sys::console::log_1()
+// A macro to provide `println!(..)`-style syntax for `console.log` logging.
+macro_rules! log {
+    ( $( $t:tt )* ) => {
+        web_sys::console::log_1(&format!( $( $t )* ).into());
+    }
+}
 
 #[wasm_bindgen]
 #[derive(Default)]
 pub struct Calculator {
-    current_value: f64,
-    current_operation: Option<Operation>,
+    current_value: String,
     input_buffer: String,
-    history: Vec<HistoryEntry>,
+    last_operation: Option<Operation>,
 }
 
 #[wasm_bindgen]
 impl Calculator {
-    pub fn new() -> Calculator {
+    #[wasm_bindgen(constructor)]
+    pub fn new() -> Self {
         utils::console::set_panic_hook();
-
-        Calculator {
-            current_value: 0.0,
-            current_operation: None,
+        Self {
+            current_value: String::new(),
             input_buffer: String::new(),
-            history: Vec::new(),
+            last_operation: None,
         }
-    }
-
-    pub fn reset(&mut self) {
-        self.current_value = 0.0;
-        self.current_operation = None;
-        self.input_buffer.clear();
-    }
-    pub fn backspace(&mut self) {
-        self.input_buffer.pop();
-    }
-
-    pub fn input_digit(&mut self, value: char) {
-        if value == '.' && self.input_buffer.contains('.') {
-            return; // Ignore additional decimal points if one is already present
-        }
-        self.input_buffer.push(value);
-    }
-    pub fn set_operation(&mut self, operation: Operation) {
-        if let Ok(value) = self.input_buffer.parse::<f64>() {
-            self.calculate_with_operand(value);
-        }
-        self.current_operation = Some(operation);
-        self.input_buffer.clear();
     }
 
     pub fn calculate(&mut self) {
-        if let Ok(value) = self.input_buffer.parse::<f64>() {
-            self.calculate_with_operand(value);
-            self.input_buffer.clear();
+        log!("The current expression is {:?}", self.input_buffer);
+        // Check if the input buffer is empty or only contains an operator
+        if self.input_buffer.is_empty()
+            || (self.last_operation.is_some() && self.current_value.is_empty())
+        {
+            self.current_value.clear();
+            return;
         }
-        self.current_operation = None;
+
+        // Append the current value to the input buffer before evaluation
+        if !self.current_value.is_empty() {
+            self.input_buffer.push_str(&self.current_value);
+        }
+
+        // return result on success or zero on error
+        let result = exmex::eval_str(&self.input_buffer).unwrap_or(0.0);
+        log!("The result is {:?}", result.to_string());
+
+        self.current_value = result.to_string();
+        self.input_buffer.clear();
+        self.last_operation = None; // Reset last operation after calculation
     }
 
-    fn calculate_with_operand(&mut self, operand: f64) {
-        if let Some(operation) = self.current_operation {
-            use Operation::*;
-            let result = match operation {
-                Add => self.current_value + operand,
-                Subtract => self.current_value - operand,
-                Multiply => self.current_value * operand,
-                Divide => {
-                    if operand == 0.0 {
-                        0.0 // Return 0 if division by zero
-                    } else {
-                        self.current_value / operand
-                    }
-                },
-            };
+    pub fn set_digit(&mut self, value: char) {
+        if value == '.'
+            && (self.current_value.contains('.')
+                || self.current_value.is_empty())
+        {
+            return; // Ignore additional decimal points or leading decimal points
+        }
+        self.current_value.push(value);
+        log!("The current value is {:?}", self.current_value);
+    }
 
-            self.history.push(HistoryEntry::new(
-                operation,
-                self.current_value,
-                Some(operand),
-                result,
-            ));
-            self.current_value = result;
+    pub fn set_operation(&mut self, operation: Operation) {
+        use Operation::*;
+        let operator = match operation {
+            Add => '+',
+            Subtract => '-',
+            Multiply => '*',
+            Divide => '/',
+        };
+
+        if !self.current_value.is_empty() {
+            self.input_buffer.push_str(&self.current_value);
+            self.input_buffer.push(operator);
+            self.current_value.clear();
+        } else if self.last_operation.is_some() {
+            // Replace last operator if no operand is entered
+            self.input_buffer.pop();
+            self.input_buffer.push(operator);
         } else {
-            self.current_value = operand;
+            // Append operator if there's no current value and no last operation
+            self.input_buffer.push(operator);
         }
+
+        self.last_operation = Some(operation);
     }
 
-    // Getters
-    pub fn current_value(&self) -> f64 {
-        self.current_value
+    pub fn backspace(&mut self) {
+        self.current_value.pop();
     }
-    pub fn current_operation(&self) -> Option<Operation> {
-        self.current_operation
+    pub fn reset(&mut self) {
+        self.current_value.clear();
+        self.input_buffer.clear();
+        self.last_operation = None;
     }
-    pub fn input_buffer(&self) -> String {
+
+    pub fn get_current_value(&self) -> String {
+        self.current_value.clone()
+    }
+
+    pub fn get_input_buffer(&self) -> String {
         self.input_buffer.clone()
-    }
-    pub fn history(&self) -> Vec<HistoryEntry> {
-        self.history.clone()
     }
 }

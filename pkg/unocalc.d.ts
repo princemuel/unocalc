@@ -13,45 +13,31 @@ export enum Operation {
 export class Calculator {
   free(): void;
 /**
-* @returns {Calculator}
 */
-  static new(): Calculator;
+  constructor();
 /**
 */
-  reset(): void;
-/**
-*/
-  backspace(): void;
+  calculate(): void;
 /**
 * @param {string} value
 */
-  input_digit(value: string): void;
+  set_digit(value: string): void;
 /**
 * @param {Operation} operation
 */
   set_operation(operation: Operation): void;
 /**
 */
-  calculate(): void;
+  backspace(): void;
 /**
-* @returns {number}
 */
-  current_value(): number;
-/**
-* @returns {Operation | undefined}
-*/
-  current_operation(): Operation | undefined;
+  reset(): void;
 /**
 * @returns {string}
 */
-  input_buffer(): string;
+  get_current_value(): string;
 /**
-* @returns {(HistoryEntry)[]}
+* @returns {string}
 */
-  history(): (HistoryEntry)[];
-}
-/**
-*/
-export class HistoryEntry {
-  free(): void;
+  get_input_buffer(): string;
 }

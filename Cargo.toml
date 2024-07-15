@@ -22,6 +22,7 @@
   # all the `std::fmt` and `std::panicking` infrastructure, so isn't great for
   # code size when deploying.
   console_error_panic_hook = { version = "0.1", optional = true }
+  exmex = "0.20.1"
   web-sys = { version = "0.3", features = ["console"] }
 
 

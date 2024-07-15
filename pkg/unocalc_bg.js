@@ -44,6 +44,15 @@ function getStringFromWasm0(ptr, len) {
     return cachedTextDecoder.decode(getUint8Memory0().subarray(ptr, ptr + len));
 }
 
+function addHeapObject(obj) {
+    if (heap_next === heap.length) heap.push(heap.length + 1);
+    const idx = heap_next;
+    heap_next = heap[idx];
+
+    heap[idx] = obj;
+    return idx;
+}
+
 function _assertChar(c) {
     if (typeof(c) === 'number' && (c >= 0x110000 || (c >= 0xD800 && c < 0xE000))) throw new Error(`expected a valid Unicode scalar value, found ${c}`);
 }
@@ -55,35 +64,6 @@ function getInt32Memory0() {
         cachedInt32Memory0 = new Int32Array(wasm.memory.buffer);
     }
     return cachedInt32Memory0;
-}
-
-let cachedUint32Memory0 = null;
-
-function getUint32Memory0() {
-    if (cachedUint32Memory0 === null || cachedUint32Memory0.byteLength === 0) {
-        cachedUint32Memory0 = new Uint32Array(wasm.memory.buffer);
-    }
-    return cachedUint32Memory0;
-}
-
-function getArrayJsValueFromWasm0(ptr, len) {
-    ptr = ptr >>> 0;
-    const mem = getUint32Memory0();
-    const slice = mem.subarray(ptr / 4, ptr / 4 + len);
-    const result = [];
-    for (let i = 0; i < slice.length; i++) {
-        result.push(takeObject(slice[i]));
-    }
-    return result;
-}
-
-function addHeapObject(obj) {
-    if (heap_next === heap.length) heap.push(heap.length + 1);
-    const idx = heap_next;
-    heap_next = heap[idx];
-
-    heap[idx] = obj;
-    return idx;
 }
 
 let WASM_VECTOR_LEN = 0;
@@ -154,14 +134,6 @@ const CalculatorFinalization = (typeof FinalizationRegistry === 'undefined')
 */
 export class Calculator {
 
-    static __wrap(ptr) {
-        ptr = ptr >>> 0;
-        const obj = Object.create(Calculator.prototype);
-        obj.__wbg_ptr = ptr;
-        CalculatorFinalization.register(obj, obj.__wbg_ptr, obj);
-        return obj;
-    }
-
     __destroy_into_raw() {
         const ptr = this.__wbg_ptr;
         this.__wbg_ptr = 0;
@@ -174,29 +146,24 @@ export class Calculator {
         wasm.__wbg_calculator_free(ptr);
     }
     /**
-    * @returns {Calculator}
     */
-    static new() {
+    constructor() {
         const ret = wasm.calculator_new();
-        return Calculator.__wrap(ret);
+        this.__wbg_ptr = ret >>> 0;
+        return this;
     }
     /**
     */
-    reset() {
-        wasm.calculator_reset(this.__wbg_ptr);
-    }
-    /**
-    */
-    backspace() {
-        wasm.calculator_backspace(this.__wbg_ptr);
+    calculate() {
+        wasm.calculator_calculate(this.__wbg_ptr);
     }
     /**
     * @param {string} value
     */
-    input_digit(value) {
+    set_digit(value) {
         const char0 = value.codePointAt(0);
         _assertChar(char0);
-        wasm.calculator_input_digit(this.__wbg_ptr, char0);
+        wasm.calculator_set_digit(this.__wbg_ptr, char0);
     }
     /**
     * @param {Operation} operation
@@ -206,32 +173,23 @@ export class Calculator {
     }
     /**
     */
-    calculate() {
-        wasm.calculator_calculate(this.__wbg_ptr);
+    backspace() {
+        wasm.calculator_backspace(this.__wbg_ptr);
     }
     /**
-    * @returns {number}
     */
-    current_value() {
-        const ret = wasm.calculator_current_value(this.__wbg_ptr);
-        return ret;
-    }
-    /**
-    * @returns {Operation | undefined}
-    */
-    current_operation() {
-        const ret = wasm.calculator_current_operation(this.__wbg_ptr);
-        return ret === 5 ? undefined : ret;
+    reset() {
+        wasm.calculator_reset(this.__wbg_ptr);
     }
     /**
     * @returns {string}
     */
-    input_buffer() {
+    get_current_value() {
         let deferred1_0;
         let deferred1_1;
         try {
             const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
-            wasm.calculator_input_buffer(retptr, this.__wbg_ptr);
+            wasm.calculator_get_current_value(retptr, this.__wbg_ptr);
             var r0 = getInt32Memory0()[retptr / 4 + 0];
             var r1 = getInt32Memory0()[retptr / 4 + 1];
             deferred1_0 = r0;
@@ -243,48 +201,23 @@ export class Calculator {
         }
     }
     /**
-    * @returns {(HistoryEntry)[]}
+    * @returns {string}
     */
-    history() {
+    get_input_buffer() {
+        let deferred1_0;
+        let deferred1_1;
         try {
             const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
-            wasm.calculator_history(retptr, this.__wbg_ptr);
+            wasm.calculator_get_input_buffer(retptr, this.__wbg_ptr);
             var r0 = getInt32Memory0()[retptr / 4 + 0];
             var r1 = getInt32Memory0()[retptr / 4 + 1];
-            var v1 = getArrayJsValueFromWasm0(r0, r1).slice();
-            wasm.__wbindgen_free(r0, r1 * 4, 4);
-            return v1;
+            deferred1_0 = r0;
+            deferred1_1 = r1;
+            return getStringFromWasm0(r0, r1);
         } finally {
             wasm.__wbindgen_add_to_stack_pointer(16);
+            wasm.__wbindgen_free(deferred1_0, deferred1_1, 1);
         }
-    }
-}
-
-const HistoryEntryFinalization = (typeof FinalizationRegistry === 'undefined')
-    ? { register: () => {}, unregister: () => {} }
-    : new FinalizationRegistry(ptr => wasm.__wbg_historyentry_free(ptr >>> 0));
-/**
-*/
-export class HistoryEntry {
-
-    static __wrap(ptr) {
-        ptr = ptr >>> 0;
-        const obj = Object.create(HistoryEntry.prototype);
-        obj.__wbg_ptr = ptr;
-        HistoryEntryFinalization.register(obj, obj.__wbg_ptr, obj);
-        return obj;
-    }
-
-    __destroy_into_raw() {
-        const ptr = this.__wbg_ptr;
-        this.__wbg_ptr = 0;
-        HistoryEntryFinalization.unregister(this);
-        return ptr;
-    }
-
-    free() {
-        const ptr = this.__destroy_into_raw();
-        wasm.__wbg_historyentry_free(ptr);
     }
 }
 
@@ -292,8 +225,8 @@ export function __wbindgen_object_drop_ref(arg0) {
     takeObject(arg0);
 };
 
-export function __wbg_historyentry_new(arg0) {
-    const ret = HistoryEntry.__wrap(arg0);
+export function __wbindgen_string_new(arg0, arg1) {
+    const ret = getStringFromWasm0(arg0, arg1);
     return addHeapObject(ret);
 };
 
@@ -320,6 +253,10 @@ export function __wbg_error_f851667af71bcfc6(arg0, arg1) {
     } finally {
         wasm.__wbindgen_free(deferred0_0, deferred0_1, 1);
     }
+};
+
+export function __wbg_log_5bb5f88f245d7762(arg0) {
+    console.log(getObject(arg0));
 };
 
 export function __wbindgen_throw(arg0, arg1) {
