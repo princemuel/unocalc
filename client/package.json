@@ -7,14 +7,17 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "build:pkg": "cd .. && wasm-pack build && cd ./client && npm install",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prepare": "pwa-assets-generator"
   },
   "devDependencies": {
+    "@vite-pwa/assets-generator": "^0.2.4",
     "autoprefixer": "^10.4.19",
     "postcss": "^8.4.39",
-    "tailwindcss": "^3.4.4",
+    "tailwindcss": "^3.4.5",
     "typescript": "^5.5.3",
     "vite": "^5.3.3",
+    "vite-plugin-pwa": "^0.20.0",
     "vite-plugin-top-level-await": "^1.4.1",
     "vite-plugin-wasm": "^3.3.0"
   },

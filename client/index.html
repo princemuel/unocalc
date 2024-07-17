@@ -2,9 +2,18 @@
 <html lang="en" class="__sans__">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/favicon.svg" sizes="any" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon-180x180.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Uno Calc</title>
+    <meta name="title" content="Uno Calculator" />
+    <meta
+      name="description"
+      content="Yet another calculator webapp with light, dark & neon themes. Built with HTML, TailwindCSS, Typescript, Vite, Rust and Wasm"
+    />
+    <meta name="keywords" itemprop="keywords" content="" />
+    <link rel="manifest" href="/manifest.webmanifest" />
     <style>
       @font-face {
         src: url(/src/assets/fonts/league-spartan.ttf) format("truetype");
@@ -18,23 +27,81 @@
         --font-sans: "__FontSans__";
       }
     </style>
+    <script>
+      "use strict";
+      if (!window.ThemeProvider) {
+        window.ThemeProvider = (function () {
+          var stored =
+            typeof window.localStorage !== "undefined" &&
+            localStorage.getItem("uno-theme");
+          var mql = window.matchMedia("(prefers-color-scheme: light)");
+          var theme = stored || (mql.matches ? "light" : "dark");
+          document.documentElement.dataset.theme = theme;
+
+          return {
+            updateWidget(theme = stored || "auto") {
+              var widget = document.querySelector("[data-id='theme-widget']");
+
+              // console.log(widget);
+            },
+          };
+        })();
+      }
+    </script>
   </head>
-  <body class="antialiased font-sans">
-    <main class="w-full max-w-sm sm:max-w-lg mx-auto mt-24">
+  <body
+    class="antialiased font-sans h-screen supports-[height:100svh]:h-svh grid place-items-center bg-white text-black dark:bg-black dark:text-white neon:bg-purple-700 neon:text-white"
+  >
+    <main class="w-full max-w-sm sm:max-w-md mx-auto">
       <section class="grid grid-rows-[1fr_1fr_4fr] border">
-        <header class="flex items-center justify-between pt-4">
+        <header class="flex items-center justify-between">
           <div class="">
             <h1 class="font-bold text-3xl">unocalc</h1>
           </div>
 
-          <div class="flex items-center gap-4">
-            <p>Theme</p>
-            <div>
-              <button type="button" data-type="" data-id=""></button>
-              <button type="button" data-type="" data-id=""></button>
-              <button type="button" data-type="" data-id=""></button>
+          <fieldset
+            is="theme-widget"
+            data-id="theme-widget"
+            id="theme-widget"
+            class="grid gap-6 grid-cols-4"
+          >
+            <legend class="sr-only">update the theme</legend>
+            <h4 class="col-span-2 self-end">THEME</h4>
+
+            <div class="flex flex-col gap-1 col-span-2">
+              <span class="flex items-center gap-1 justify-around">
+                <label for="light" class="cursor-pointer">1</label>
+                <label for="dark" class="cursor-pointer">2</label>
+                <label for="neon" class="cursor-pointer">3</label>
+              </span>
+
+              <span
+                class="flex items-center gap-1 justify-evenly rounded-full bg-black p-1"
+              >
+                <input
+                  type="radio"
+                  name="uno-theme"
+                  id="light"
+                  class="cursor-pointer"
+                  value="light"
+                />
+                <input
+                  type="radio"
+                  name="uno-theme"
+                  id="dark"
+                  class="cursor-pointer"
+                  value="dark"
+                />
+                <input
+                  type="radio"
+                  name="uno-theme"
+                  id="neon"
+                  class="cursor-pointer"
+                  value="neon"
+                />
+              </span>
             </div>
-          </div>
+          </fieldset>
         </header>
 
         <section class="grid items-center p-4">
@@ -53,174 +120,142 @@
         >
           <button
             type="button"
-            name="seven"
             data-type="number"
-            data-id="seven"
-            class="cursor-pointer border px-3 py-2 hocus:brightness-150"
+            class="cursor-pointer border hocus:brightness-150 text-xl sm:text-3xl font-bold"
           >
             7
           </button>
           <button
             type="button"
-            name="eight"
             data-type="number"
-            data-id="eight"
-            class="cursor-pointer border px-3 py-2 hocus:brightness-150"
+            class="cursor-pointer border hocus:brightness-150 text-xl sm:text-3xl font-bold"
           >
             8
           </button>
           <button
             type="button"
-            name="nine"
             data-type="number"
-            data-id="nine"
-            class="cursor-pointer border px-3 py-2 hocus:brightness-150"
+            class="cursor-pointer border hocus:brightness-150 text-xl sm:text-3xl font-bold"
           >
             9
           </button>
           <button
             type="button"
-            name="delete"
             data-type="delete"
-            data-id="delete"
-            class="cursor-pointer border px-3 py-2 hocus:brightness-150"
+            class="cursor-pointer border hocus:brightness-150 text-xl sm:text-3xl font-bold"
           >
             DEL
           </button>
 
           <button
             type="button"
-            name="four"
             data-type="number"
-            data-id="four"
-            class="cursor-pointer border px-3 py-2 hocus:brightness-150"
+            class="cursor-pointer border hocus:brightness-150 text-xl sm:text-3xl font-bold"
           >
             4
           </button>
           <button
             type="button"
-            name="five"
             data-type="number"
-            data-id="five"
-            class="cursor-pointer border px-3 py-2 hocus:brightness-150"
+            class="cursor-pointer border hocus:brightness-150 text-xl sm:text-3xl font-bold"
           >
             5
           </button>
           <button
             type="button"
-            name="six"
             data-type="number"
-            data-id="six"
-            class="cursor-pointer border px-3 py-2 hocus:brightness-150"
+            class="cursor-pointer border hocus:brightness-150 text-xl sm:text-3xl font-bold"
           >
             6
           </button>
           <button
             type="button"
-            name="plus"
             data-type="operator"
-            data-id="plus"
-            class="cursor-pointer border px-3 py-2 hocus:brightness-150"
+            class="cursor-pointer border hocus:brightness-150 text-xl sm:text-3xl font-bold"
           >
             +
           </button>
 
           <button
             type="button"
-            name="one"
             data-type="number"
-            data-id="one"
-            class="cursor-pointer border px-3 py-2 hocus:brightness-150"
+            class="cursor-pointer border hocus:brightness-150 text-xl sm:text-3xl font-bold"
           >
             1
           </button>
           <button
             type="button"
-            name="two"
             data-type="number"
-            data-id="two"
-            class="cursor-pointer border px-3 py-2 hocus:brightness-150"
+            class="cursor-pointer border hocus:brightness-150 text-xl sm:text-3xl font-bold"
           >
             2
           </button>
           <button
             type="button"
-            name="three"
             data-type="number"
-            data-id="three"
-            class="cursor-pointer border px-3 py-2 hocus:brightness-150"
+            class="cursor-pointer border hocus:brightness-150 text-xl sm:text-3xl font-bold"
           >
             3
           </button>
           <button
             type="button"
-            name="minus"
             data-type="operator"
-            data-id="minus"
-            class="cursor-pointer border px-3 py-2 hocus:brightness-150"
+            class="cursor-pointer border hocus:brightness-150 text-xl sm:text-3xl font-bold"
           >
             -
           </button>
 
           <button
             type="button"
-            name="decimal"
             data-type="decimal"
-            data-id="decimal"
-            class="cursor-pointer border px-3 py-2 hocus:brightness-150"
+            class="cursor-pointer border hocus:brightness-150 text-xl sm:text-3xl font-bold"
           >
             .
           </button>
           <button
             type="button"
-            name="zero"
             data-type="number"
-            data-id="zero"
-            class="cursor-pointer border px-3 py-2 hocus:brightness-150"
+            class="cursor-pointer border hocus:brightness-150 text-xl sm:text-3xl font-bold"
           >
             0
           </button>
           <button
             type="button"
-            name="divide"
             data-type="operator"
-            data-id="divide"
-            class="cursor-pointer border px-3 py-2 hocus:brightness-150"
+            class="cursor-pointer border hocus:brightness-150 text-xl sm:text-3xl font-bold"
           >
             /
           </button>
           <button
             type="button"
-            name="times"
             data-type="operator"
-            data-id="times"
-            class="cursor-pointer border px-3 py-2 hocus:brightness-150"
+            class="cursor-pointer border hocus:brightness-150 text-xl sm:text-3xl font-bold"
           >
             x
           </button>
 
           <button
             type="button"
-            name="reset"
             data-type="reset"
-            data-id="reset"
-            class="cursor-pointer border px-3 py-2 hocus:brightness-150 [grid-area:reset]"
+            class="cursor-pointer border hocus:brightness-150 text-xl sm:text-3xl font-bold [grid-area:reset]"
           >
             RESET
           </button>
 
           <button
             type="button"
-            name="equals"
             data-type="equals"
-            data-id="equals"
-            class="cursor-pointer border px-3 py-2 hocus:brightness-150 [grid-area:equal]"
+            class="cursor-pointer border hocus:brightness-150 text-xl sm:text-3xl font-bold [grid-area:equal]"
           >
             =
           </button>
         </form>
       </section>
     </main>
+    <script>
+      "use strict";
+      window.ThemeProvider.updateWidget();
+    </script>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

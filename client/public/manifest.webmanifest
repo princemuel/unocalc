@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json.schemastore.org/web-manifest-combined.json",
+  "name": "Uno Calculator",
+  "short_name": "unocalc",
+  "description": "Yet another calculator webapp with light, dark & neon themes. Built with HTML, TailwindCSS, Typescript, Vite, Rust and Wasm",
+  "id": "/",
+  "lang": "en-US",
+  "orientation": "natural",
+  "display_override": ["window-controls-overlay", "fullscreen", "minimal-ui"],
+  "background_color": "#1b1b1f",
+  "theme_color": "#10b981",
+  "categories": ["calculator", "webapp", "rust", "wasm", "vite.js"],
+  "handle_links": "auto",
+  "launch_handler": { "client_mode": "navigate-existing" },
+  "edge_side_panel": { "preferred_width": 320 },
+  "icons": [
+    {
+      "src": "pwa-64x64.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    },
+    {
+      "src": "pwa-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "pwa-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "maskable-icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
