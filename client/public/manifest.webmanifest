@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/web-manifest-combined.json",
-  "name": "Uno Calculator",
+  "name": "Uno Calc",
   "short_name": "unocalc",
   "description": "Yet another calculator webapp with light, dark & neon themes. Built with HTML, TailwindCSS, Typescript, Vite, Rust and Wasm",
   "id": "/",
