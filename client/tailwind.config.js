@@ -36,6 +36,7 @@ export default {
   plugins: [
     twPlugin(function ({ addVariant }) {
       addVariant("neon", '&:where([data-theme="neon"], [data-theme="neon"] *)');
+      addVariant("hocus", ["&:hover", "&:focus"]);
     }),
   ],
 };
