@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="__sans__">
+<html lang="en" class="__sans__" data-theme="auto">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" href="/favicon.ico" sizes="48x48" />
@@ -31,18 +31,17 @@
       "use strict";
       if (!window.ThemeProvider) {
         window.ThemeProvider = (function () {
-          var stored =
+          const storedTheme =
             typeof window.localStorage !== "undefined" &&
             localStorage.getItem("uno-theme");
-          var mql = window.matchMedia("(prefers-color-scheme: light)");
-          var theme = stored || (mql.matches ? "light" : "dark");
+          const mql = window.matchMedia("(prefers-color-scheme: light)");
+          const theme = storedTheme || (mql.matches ? "light" : "dark");
           document.documentElement.dataset.theme = theme;
-
           return {
-            updateWidget(theme = stored || "auto") {
-              var widget = document.querySelector("[data-id='theme-widget']");
-
-              // console.log(widget);
+            updateWidget(theme = storedTheme || "auto") {
+              /** @type {HTMLInputElement | null} */
+              const element = document.getElementById(theme);
+              if (element) element.checked = true;
             },
           };
         })();
@@ -50,53 +49,70 @@
     </script>
   </head>
   <body
-    class="antialiased font-sans h-screen supports-[height:100svh]:h-svh grid place-items-center bg-white text-black dark:bg-black dark:text-white neon:bg-purple-700 neon:text-white"
+    class="antialiased font-sans h-screen supports-[height:100svh]:h-svh grid place-items-center bg-marine-300 dark:bg-prussian-500 neon:bg-lilac-500"
   >
-    <main class="w-full max-w-sm sm:max-w-md mx-auto">
-      <section class="grid grid-rows-[1fr_1fr_4fr] border">
+    <main class="w-full max-w-sm sm:max-w-lg mx-auto">
+      <section class="grid grid-rows-[1fr_1fr_4fr] gap-4">
         <header class="flex items-center justify-between">
           <div class="">
-            <h1 class="font-bold text-3xl">unocalc</h1>
+            <h1 class="font-bold text-marine-800 text-3xl">calc</h1>
           </div>
 
           <fieldset
             is="theme-widget"
             data-id="theme-widget"
             id="theme-widget"
-            class="grid gap-6 grid-cols-4"
+            class="grid gap-2 grid-cols-4"
           >
             <legend class="sr-only">update the theme</legend>
-            <h4 class="col-span-2 self-end">THEME</h4>
+            <h4 class="col-span-2 self-end text-xs font-bold text-marine-800">
+              THEME
+            </h4>
 
             <div class="flex flex-col gap-1 col-span-2">
               <span class="flex items-center gap-1 justify-around">
-                <label for="light" class="cursor-pointer">1</label>
-                <label for="dark" class="cursor-pointer">2</label>
-                <label for="neon" class="cursor-pointer">3</label>
+                <label
+                  for="light"
+                  class="cursor-pointer text-xs font-bold text-marine-800"
+                >
+                  1
+                </label>
+                <label
+                  for="dark"
+                  class="cursor-pointer text-xs font-bold text-marine-800"
+                >
+                  2
+                </label>
+                <label
+                  for="neon"
+                  class="cursor-pointer text-xs font-bold text-marine-800"
+                >
+                  3
+                </label>
               </span>
 
               <span
-                class="flex items-center gap-1 justify-evenly rounded-full bg-black p-1"
+                class="flex items-center gap-1 justify-evenly rounded-full bg-marine-400 p-1"
               >
                 <input
                   type="radio"
                   name="uno-theme"
                   id="light"
-                  class="cursor-pointer"
+                  class="cursor-pointer size-3 transition-colors duration-500 rounded-full appearance-none forced-colors:appearance-auto checked:bg-accent-200"
                   value="light"
                 />
                 <input
                   type="radio"
                   name="uno-theme"
                   id="dark"
-                  class="cursor-pointer"
+                  class="cursor-pointer size-3 transition-colors duration-500 rounded-full appearance-none forced-colors:appearance-auto checked:bg-accent-200"
                   value="dark"
                 />
                 <input
                   type="radio"
                   name="uno-theme"
                   id="neon"
-                  class="cursor-pointer"
+                  class="cursor-pointer size-3 transition-colors duration-500 rounded-full appearance-none forced-colors:appearance-auto checked:bg-accent-200"
                   value="neon"
                 />
               </span>
@@ -104,45 +120,44 @@
           </fieldset>
         </header>
 
-        <section class="grid items-center p-4">
-          <output
-            name="result"
-            id="result"
-            form="keypad"
-            class="text-6xl text-right font-bold"
-            >0</output
-          >
-        </section>
+        <output
+          name="result"
+          id="result"
+          form="keypad"
+          class="text-5xl sm:text-6xl p-4 sm:p-6 text-marine-800 bg-marine-100 rounded-lg text-right font-bold"
+        >
+          399,981
+        </output>
 
         <form
           id="keypad"
-          class="grid grid-cols-4 gap-4 p-4 text-2xl [grid-template-areas:'seven_eight_nine_delete''four_five_six_plus''one_two_three_minus''decimal_zero_divide_times''reset_reset_equal_equal']"
+          class="grid grid-cols-4 gap-4 p-4 sm:p-6 text-2xl rounded-lg [grid-template-areas:'seven_eight_nine_delete''four_five_six_plus''one_two_three_minus''decimal_zero_divide_times''reset_reset_equal_equal'] bg-marine-400"
         >
           <button
             type="button"
             data-type="number"
-            class="cursor-pointer border hocus:brightness-150 text-xl sm:text-3xl font-bold"
+            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 hocus:brightness-150 text-xl sm:text-3xl font-bold"
           >
             7
           </button>
           <button
             type="button"
             data-type="number"
-            class="cursor-pointer border hocus:brightness-150 text-xl sm:text-3xl font-bold"
+            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 hocus:brightness-150 text-xl sm:text-3xl font-bold"
           >
             8
           </button>
           <button
             type="button"
             data-type="number"
-            class="cursor-pointer border hocus:brightness-150 text-xl sm:text-3xl font-bold"
+            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 hocus:brightness-150 text-xl sm:text-3xl font-bold"
           >
             9
           </button>
           <button
             type="button"
             data-type="delete"
-            class="cursor-pointer border hocus:brightness-150 text-xl sm:text-3xl font-bold"
+            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-700 text-white bg-marine-600 hocus:brightness-150 text-xl sm:text-3xl font-bold"
           >
             DEL
           </button>
@@ -150,28 +165,28 @@
           <button
             type="button"
             data-type="number"
-            class="cursor-pointer border hocus:brightness-150 text-xl sm:text-3xl font-bold"
+            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 hocus:brightness-150 text-xl sm:text-3xl font-bold"
           >
             4
           </button>
           <button
             type="button"
             data-type="number"
-            class="cursor-pointer border hocus:brightness-150 text-xl sm:text-3xl font-bold"
+            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 hocus:brightness-150 text-xl sm:text-3xl font-bold"
           >
             5
           </button>
           <button
             type="button"
             data-type="number"
-            class="cursor-pointer border hocus:brightness-150 text-xl sm:text-3xl font-bold"
+            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 hocus:brightness-150 text-xl sm:text-3xl font-bold"
           >
             6
           </button>
           <button
             type="button"
             data-type="operator"
-            class="cursor-pointer border hocus:brightness-150 text-xl sm:text-3xl font-bold"
+            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 hocus:brightness-150 text-xl sm:text-3xl font-bold"
           >
             +
           </button>
@@ -179,28 +194,28 @@
           <button
             type="button"
             data-type="number"
-            class="cursor-pointer border hocus:brightness-150 text-xl sm:text-3xl font-bold"
+            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 hocus:brightness-150 text-xl sm:text-3xl font-bold"
           >
             1
           </button>
           <button
             type="button"
             data-type="number"
-            class="cursor-pointer border hocus:brightness-150 text-xl sm:text-3xl font-bold"
+            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 hocus:brightness-150 text-xl sm:text-3xl font-bold"
           >
             2
           </button>
           <button
             type="button"
             data-type="number"
-            class="cursor-pointer border hocus:brightness-150 text-xl sm:text-3xl font-bold"
+            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 hocus:brightness-150 text-xl sm:text-3xl font-bold"
           >
             3
           </button>
           <button
             type="button"
             data-type="operator"
-            class="cursor-pointer border hocus:brightness-150 text-xl sm:text-3xl font-bold"
+            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 hocus:brightness-150 text-xl sm:text-3xl font-bold"
           >
             -
           </button>
@@ -208,28 +223,28 @@
           <button
             type="button"
             data-type="decimal"
-            class="cursor-pointer border hocus:brightness-150 text-xl sm:text-3xl font-bold"
+            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 hocus:brightness-150 text-xl sm:text-3xl font-bold"
           >
             .
           </button>
           <button
             type="button"
             data-type="number"
-            class="cursor-pointer border hocus:brightness-150 text-xl sm:text-3xl font-bold"
+            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 hocus:brightness-150 text-xl sm:text-3xl font-bold"
           >
             0
           </button>
           <button
             type="button"
             data-type="operator"
-            class="cursor-pointer border hocus:brightness-150 text-xl sm:text-3xl font-bold"
+            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 hocus:brightness-150 text-xl sm:text-3xl font-bold"
           >
             /
           </button>
           <button
             type="button"
             data-type="operator"
-            class="cursor-pointer border hocus:brightness-150 text-xl sm:text-3xl font-bold"
+            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 hocus:brightness-150 text-xl sm:text-3xl font-bold"
           >
             x
           </button>
@@ -237,7 +252,7 @@
           <button
             type="button"
             data-type="reset"
-            class="cursor-pointer border hocus:brightness-150 text-xl sm:text-3xl font-bold [grid-area:reset]"
+            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-700 text-white bg-marine-600 hocus:brightness-150 text-xl sm:text-3xl font-bold [grid-area:reset]"
           >
             RESET
           </button>
@@ -245,7 +260,7 @@
           <button
             type="button"
             data-type="equals"
-            class="cursor-pointer border hocus:brightness-150 text-xl sm:text-3xl font-bold [grid-area:equal]"
+            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-accent-300 bg-accent-200 text-white hocus:brightness-150 text-xl sm:text-3xl font-bold [grid-area:equal]"
           >
             =
           </button>
@@ -253,7 +268,6 @@
       </section>
     </main>
     <script>
-      "use strict";
       window.ThemeProvider.updateWidget();
     </script>
     <script type="module" src="/src/main.ts"></script>
