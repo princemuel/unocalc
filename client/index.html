@@ -59,7 +59,9 @@
       <section class="grid grid-rows-[1fr_1fr_4fr] gap-4">
         <header class="flex items-center justify-between">
           <div class="">
-            <h1 class="font-bold dark:text-white text-marine-800 text-3xl">
+            <h1
+              class="font-bold dark:text-white neon:text-accent-100 text-marine-800 text-3xl"
+            >
               calc
             </h1>
           </div>
@@ -72,7 +74,7 @@
           >
             <legend class="sr-only">update the theme</legend>
             <h4
-              class="col-span-2 dark:text-white self-end text-xs font-bold text-marine-800"
+              class="col-span-2 neon:text-accent-100 dark:text-white self-end text-xs font-bold text-marine-800"
             >
               THEME
             </h4>
@@ -81,26 +83,26 @@
               <span class="flex items-center gap-1 justify-around">
                 <label
                   for="dark"
-                  class="cursor-pointer text-xs font-bold text-marine-800 dark:text-white"
+                  class="cursor-pointer text-xs font-bold text-marine-800 neon:text-accent-100 dark:text-white"
                 >
                   1
                 </label>
                 <label
                   for="light"
-                  class="cursor-pointer text-xs font-bold text-marine-800 dark:text-white"
+                  class="cursor-pointer text-xs font-bold text-marine-800 neon:text-accent-100 dark:text-white"
                 >
                   2
                 </label>
                 <label
                   for="neon"
-                  class="cursor-pointer text-xs font-bold text-marine-800 dark:text-white"
+                  class="cursor-pointer text-xs font-bold text-marine-800 neon:text-accent-100 dark:text-white"
                 >
                   3
                 </label>
               </span>
 
               <span
-                class="flex items-center gap-1 justify-evenly rounded-full bg-marine-400 dark:bg-prussian-700 p-1"
+                class="flex items-center gap-1 justify-evenly rounded-full bg-marine-400 dark:bg-prussian-700 p-1 neon:bg-lilac-400"
               >
                 <input
                   type="radio"
@@ -120,7 +122,7 @@
                   type="radio"
                   name="uno-theme"
                   id="neon"
-                  class="cursor-pointer hocus:brightness-125 size-3 rounded-full appearance-none forced-colors:appearance-auto checked:bg-accent-200 checked:dark:bg-accent-400"
+                  class="cursor-pointer hocus:brightness-125 size-3 rounded-full appearance-none forced-colors:appearance-auto checked:bg-accent-700"
                   value="neon"
                 />
               </span>
@@ -132,40 +134,40 @@
           name="result"
           id="result"
           form="keypad"
-          class="text-5xl sm:text-6xl p-4 sm:p-6 text-marine-800 bg-marine-100 rounded-lg text-right font-bold dark:text-white dark:bg-prussian-800"
+          class="text-5xl sm:text-6xl p-4 sm:p-6 text-marine-800 bg-marine-100 rounded-lg text-right font-bold dark:text-white neon:bg-lilac-400 neon:text-accent-100 dark:bg-prussian-800"
         >
           399,981
         </output>
 
         <form
           id="keypad"
-          class="grid grid-cols-4 gap-4 p-4 sm:p-6 text-2xl rounded-lg [grid-template-areas:'seven_eight_nine_delete''four_five_six_plus''one_two_three_minus''decimal_zero_divide_times''reset_reset_equal_equal'] bg-marine-400 dark:bg-prussian-700"
+          class="grid grid-cols-4 gap-4 p-4 sm:p-6 text-2xl rounded-lg [grid-template-areas:'seven_eight_nine_delete''four_five_six_plus''one_two_three_minus''decimal_zero_divide_times''reset_reset_equal_equal'] bg-marine-400 dark:bg-prussian-700 neon:bg-lilac-400"
         >
           <button
             type="button"
             data-type="number"
-            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 dark:bg-prussian-100 dark:text-prussian-600 dark:shadow-prussian-200 hocus:brightness-125 text-xl sm:text-3xl font-bold"
+            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 dark:bg-prussian-100 dark:text-prussian-600 dark:shadow-prussian-200 hocus:brightness-125 text-xl sm:text-3xl font-bold neon:text-accent-100 neon:bg-lilac-300 neon:shadow-lilac-200"
           >
             7
           </button>
           <button
             type="button"
             data-type="number"
-            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 dark:bg-prussian-100 dark:text-prussian-600 dark:shadow-prussian-200 hocus:brightness-125 text-xl sm:text-3xl font-bold"
+            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 dark:bg-prussian-100 dark:text-prussian-600 dark:shadow-prussian-200 hocus:brightness-125 text-xl sm:text-3xl font-bold neon:text-accent-100 neon:bg-lilac-300 neon:shadow-lilac-200"
           >
             8
           </button>
           <button
             type="button"
             data-type="number"
-            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 dark:bg-prussian-100 dark:text-prussian-600 dark:shadow-prussian-200 hocus:brightness-125 text-xl sm:text-3xl font-bold"
+            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 dark:bg-prussian-100 dark:text-prussian-600 dark:shadow-prussian-200 hocus:brightness-125 text-xl sm:text-3xl font-bold neon:text-accent-100 neon:bg-lilac-300 neon:shadow-lilac-200"
           >
             9
           </button>
           <button
             type="button"
             data-type="delete"
-            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-700 text-white bg-marine-600 dark:bg-prussian-300 dark:shadow-prussian-400 hocus:brightness-125 text-xl sm:text-3xl font-bold"
+            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-700 text-white bg-marine-600 dark:bg-prussian-300 dark:shadow-prussian-400 hocus:brightness-125 text-xl sm:text-3xl font-bold neon:bg-lilac-800 neon:shadow-lilac-100"
           >
             DEL
           </button>
@@ -173,28 +175,28 @@
           <button
             type="button"
             data-type="number"
-            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 dark:bg-prussian-100 dark:text-prussian-600 dark:shadow-prussian-200 hocus:brightness-125 text-xl sm:text-3xl font-bold"
+            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 dark:bg-prussian-100 dark:text-prussian-600 dark:shadow-prussian-200 hocus:brightness-125 text-xl sm:text-3xl font-bold neon:text-accent-100 neon:bg-lilac-300 neon:shadow-lilac-200"
           >
             4
           </button>
           <button
             type="button"
             data-type="number"
-            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 dark:bg-prussian-100 dark:text-prussian-600 dark:shadow-prussian-200 hocus:brightness-125 text-xl sm:text-3xl font-bold"
+            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 dark:bg-prussian-100 dark:text-prussian-600 dark:shadow-prussian-200 hocus:brightness-125 text-xl sm:text-3xl font-bold neon:text-accent-100 neon:bg-lilac-300 neon:shadow-lilac-200"
           >
             5
           </button>
           <button
             type="button"
             data-type="number"
-            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 dark:bg-prussian-100 dark:text-prussian-600 dark:shadow-prussian-200 hocus:brightness-125 text-xl sm:text-3xl font-bold"
+            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 dark:bg-prussian-100 dark:text-prussian-600 dark:shadow-prussian-200 hocus:brightness-125 text-xl sm:text-3xl font-bold neon:text-accent-100 neon:bg-lilac-300 neon:shadow-lilac-200"
           >
             6
           </button>
           <button
             type="button"
             data-type="operator"
-            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 dark:bg-prussian-100 dark:text-prussian-600 dark:shadow-prussian-200 hocus:brightness-125 text-xl sm:text-3xl font-bold"
+            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 dark:bg-prussian-100 dark:text-prussian-600 dark:shadow-prussian-200 hocus:brightness-125 text-xl sm:text-3xl font-bold neon:text-accent-100 neon:bg-lilac-300 neon:shadow-lilac-200"
           >
             +
           </button>
@@ -202,28 +204,28 @@
           <button
             type="button"
             data-type="number"
-            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 dark:bg-prussian-100 dark:text-prussian-600 dark:shadow-prussian-200 hocus:brightness-125 text-xl sm:text-3xl font-bold"
+            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 dark:bg-prussian-100 dark:text-prussian-600 dark:shadow-prussian-200 hocus:brightness-125 text-xl sm:text-3xl font-bold neon:text-accent-100 neon:bg-lilac-300 neon:shadow-lilac-200"
           >
             1
           </button>
           <button
             type="button"
             data-type="number"
-            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 dark:bg-prussian-100 dark:text-prussian-600 dark:shadow-prussian-200 hocus:brightness-125 text-xl sm:text-3xl font-bold"
+            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 dark:bg-prussian-100 dark:text-prussian-600 dark:shadow-prussian-200 hocus:brightness-125 text-xl sm:text-3xl font-bold neon:text-accent-100 neon:bg-lilac-300 neon:shadow-lilac-200"
           >
             2
           </button>
           <button
             type="button"
             data-type="number"
-            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 dark:bg-prussian-100 dark:text-prussian-600 dark:shadow-prussian-200 hocus:brightness-125 text-xl sm:text-3xl font-bold"
+            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 dark:bg-prussian-100 dark:text-prussian-600 dark:shadow-prussian-200 hocus:brightness-125 text-xl sm:text-3xl font-bold neon:text-accent-100 neon:bg-lilac-300 neon:shadow-lilac-200"
           >
             3
           </button>
           <button
             type="button"
             data-type="operator"
-            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 dark:bg-prussian-100 dark:text-prussian-600 dark:shadow-prussian-200 hocus:brightness-125 text-xl sm:text-3xl font-bold"
+            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 dark:bg-prussian-100 dark:text-prussian-600 dark:shadow-prussian-200 hocus:brightness-125 text-xl sm:text-3xl font-bold neon:text-accent-100 neon:bg-lilac-300 neon:shadow-lilac-200"
           >
             -
           </button>
@@ -231,28 +233,28 @@
           <button
             type="button"
             data-type="decimal"
-            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 dark:bg-prussian-100 dark:text-prussian-600 dark:shadow-prussian-200 hocus:brightness-125 text-xl sm:text-3xl font-bold"
+            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 dark:bg-prussian-100 dark:text-prussian-600 dark:shadow-prussian-200 hocus:brightness-125 text-xl sm:text-3xl font-bold neon:text-accent-100 neon:bg-lilac-300 neon:shadow-lilac-200"
           >
             .
           </button>
           <button
             type="button"
             data-type="number"
-            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 dark:bg-prussian-100 dark:text-prussian-600 dark:shadow-prussian-200 hocus:brightness-125 text-xl sm:text-3xl font-bold"
+            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 dark:bg-prussian-100 dark:text-prussian-600 dark:shadow-prussian-200 hocus:brightness-125 text-xl sm:text-3xl font-bold neon:text-accent-100 neon:bg-lilac-300 neon:shadow-lilac-200"
           >
             0
           </button>
           <button
             type="button"
             data-type="operator"
-            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 dark:bg-prussian-100 dark:text-prussian-600 dark:shadow-prussian-200 hocus:brightness-125 text-xl sm:text-3xl font-bold"
+            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 dark:bg-prussian-100 dark:text-prussian-600 dark:shadow-prussian-200 hocus:brightness-125 text-xl sm:text-3xl font-bold neon:text-accent-100 neon:bg-lilac-300 neon:shadow-lilac-200"
           >
             /
           </button>
           <button
             type="button"
             data-type="operator"
-            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 dark:bg-prussian-100 dark:text-prussian-600 dark:shadow-prussian-200 hocus:brightness-125 text-xl sm:text-3xl font-bold"
+            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 dark:bg-prussian-100 dark:text-prussian-600 dark:shadow-prussian-200 hocus:brightness-125 text-xl sm:text-3xl font-bold neon:text-accent-100 neon:bg-lilac-300 neon:shadow-lilac-200"
           >
             x
           </button>
@@ -260,7 +262,7 @@
           <button
             type="button"
             data-type="reset"
-            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-700 text-white bg-marine-600 dark:bg-prussian-300 dark:shadow-prussian-400 hocus:brightness-125 text-xl sm:text-3xl font-bold [grid-area:reset]"
+            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-700 text-white bg-marine-600 dark:bg-prussian-300 dark:shadow-prussian-400 hocus:brightness-125 text-xl sm:text-3xl font-bold neon:bg-lilac-800 neon:shadow-lilac-100 [grid-area:reset]"
           >
             RESET
           </button>
@@ -268,7 +270,7 @@
           <button
             type="button"
             data-type="equals"
-            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-accent-300 bg-accent-200 dark:bg-accent-400 dark:shadow-accent-500 text-white hocus:brightness-125 text-xl sm:text-3xl font-bold [grid-area:equal]"
+            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-accent-300 bg-accent-200 dark:bg-accent-400 dark:shadow-accent-500 text-white hocus:brightness-125 neon:bg-accent-700 neon:shadow-accent-600 neon:text-lilac-700 text-xl sm:text-3xl font-bold [grid-area:equal]"
           >
             =
           </button>
