@@ -1,6 +1,6 @@
 import twDefaultTheme from "tailwindcss/defaultTheme";
 import twPlugin from "tailwindcss/plugin";
-import twConfig from "./config.json";
+import twConfig from "./tailwind-config.json";
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -17,7 +17,7 @@ export default {
       colors: twConfig.theme.colors,
       fontFamily: {
         sans: [
-          twConfig.theme.fonts.family.sans,
+          twConfig.theme.fontFamily.sans,
           ...twDefaultTheme.fontFamily.sans,
         ],
       },
@@ -36,9 +36,7 @@ export default {
   plugins: [
     twPlugin(function ({ addVariant }) {
       addVariant("neon", '&:where([data-theme="neon"], [data-theme="neon"] *)');
-
-      // addVariant("neon", '&:where([data-theme="neon"], [data-theme="neon"] *');
-      addVariant("optional", "&:optional");
+      addVariant("hocus", ["&:hover", "&:focus"]);
     }),
   ],
 };

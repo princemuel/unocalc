@@ -1,0 +1,49 @@
+{
+  "theme": {
+    "colors": {
+      "marine": {
+        "100": "hsl(0,0%,93%)",
+        "200": "hsl(45,7%,89%)",
+        "300": "hsl(0,0%,90%)",
+        "400": "hsl(0,5%,81%)",
+        "500": "hsl(35,11%,61%)",
+        "600": "hsl(185,42%,37%)",
+        "700": "hsl(185,58%,25%)",
+        "800": "hsl(60,10%,19%)"
+      },
+      "prussian": {
+        "100": "hsl(30,25%,89%)",
+        "200": "hsl(28,16%,65%)",
+        "300": "hsl(225,21%,49%)",
+        "400": "hsl(224,28%,35%)",
+        "500": "hsl(222,26%,31%)",
+        "600": "hsl(221,14%,31%)",
+        "700": "hsl(223,31%,20%)",
+        "800": "hsl(224,36%,15%)"
+      },
+      "lilac": {
+        "100": "hsl(285,91%,52%)",
+        "200": "hsl(290,70%,36%)",
+        "300": "hsl(268,47%,21%)",
+        "400": "hsl(268,71%,12%)",
+        "500": "hsl(268,75%,9%)",
+        "600": "hsl(268,47%,21%)",
+        "700": "hsl(198,20%,13%)",
+        "800": "hsl(281,89%,26%)"
+      },
+      "accent": {
+        "100": "hsl(52,100%,62%)",
+        "200": "hsl(25,98%,40%)",
+        "300": "hsl(25,99%,27%)",
+        "400": "hsl(6,63%,50%)",
+        "500": "hsl(6,70%,34%)",
+        "600": "hsl(177,92%,70%)",
+        "700": "hsl(176,100%,44%)"
+      }
+    },
+    "fontFamily": { "sans": "var(--font-sans)" },
+    "cursor": {
+      "pointer": "url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAAUCAYAAABvVQZ0AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAI6SURBVHgBnZRBaxNBGIYnu9uNSW1NlkgMVAl4Cyg5CAUPJlYFTyaX3CohePKUn5BcBA9CfkAvAf+B4sVLBC8eChv05ClKVaQIiUKjabOO77s7E8bUBpsXnrwzu9lvvvm+2bXFccWADRw1XlpWJpNZg+8ACV4kEomNVqtliSW0Am2mUik5HA5luVxmwEe5XC4pltBZ27a38/m8pHq9HoP54KI47ZbT6fQ52H1mRjE7jnFtK5vNrjJzhSuiui5cYA2Z3YN/HwwGYcBischgH8En8BLsKZ5w8VqtdiwoJ5bneeuO49zGeBdFD4OVSqVwu77vh1nS9VgF3SoUCq4ZiJObzAgcgK8sPtVsNqWWvka1221d011wgckI9cPJ5263K7k9NkDXbZH4Xzz3DRRVLcPDycmYBTe6KPV8kUR0Hm+AM0JFvA4+6DpRnU5nNq5UKn85A5jBUOdb8ITO7CrY4dZ0F+dX/5cbmd0Fq6zXb7CPI/F6NBq9bTQa4n/V7/dpI2QmZxfZWugKhm3eNLdI6S5q1/VkozB+BjZB3Dwe6+COZVlP4Ufs7CLV63UGeg8egksieiNmspPJZA6+DZ6DX/MZVqvVMDt1JA6w8GP4NV38ebnxePwy/IEK+FMVWHMIhmr8BnWuwj2hDqwzF+xwMpnsIeCr6XQ6DoJgIKIvhhuLxaZIjm/IEZgAH/ffwX+IqIknvvU8e+fBBlb38JALDxBwrLKTWGwf/gWMzcKfJP3pXjGuBcqlyjAwH/gDZjDKatJ5fJYAAAAASUVORK5CYII=\"),pointer;"
+    }
+  }
+}
