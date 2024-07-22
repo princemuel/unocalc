@@ -1,5 +1,6 @@
 {
   "name": "unocalc",
+  "type": "module",
   "collaborators": [
     "Prince Muel <vansomecsam@gmail.com>"
   ],
@@ -11,16 +12,15 @@
     "url": "https://github.com/princemuel/unocalc"
   },
   "files": [
-    "unocalc_bg.wasm",
-    "unocalc.js",
-    "unocalc_bg.js",
-    "unocalc.d.ts",
-    "LICENSE.txt"
+    "index_bg.wasm",
+    "index.js",
+    "index_bg.js",
+    "index.d.ts"
   ],
-  "module": "unocalc.js",
-  "types": "unocalc.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "sideEffects": [
-    "./unocalc.js",
+    "./index.js",
     "./snippets/*"
   ]
 }
