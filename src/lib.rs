@@ -1,11 +1,13 @@
-pub mod models;
+extern crate cfg_if;
+extern crate wasm_bindgen;
+extern crate web_sys;
+
+pub mod schema;
 pub mod utils;
 
+use schema::Token;
 use std::fmt::Debug;
-
 use wasm_bindgen::prelude::*;
-
-extern crate web_sys;
 
 // A macro to provide `println!(..)`-style syntax for `console.log` logging.
 macro_rules! console_log {
@@ -33,4 +35,8 @@ impl Calculator {
         utils::set_panic_hook();
         Self { input_buffer: String::from("0") }
     }
+}
+
+pub fn parse_to_tokens(input: String) -> Result<Vec<Token>, String> {
+    input.split_whitespace().map(|value| value.parse::<Token>()).collect()
 }
