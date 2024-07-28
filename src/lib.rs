@@ -5,9 +5,13 @@ extern crate web_sys;
 pub mod schema;
 pub mod utils;
 
-use schema::Token;
+use std::str::FromStr;
 
+use once_cell::sync::Lazy;
+use regex::Regex;
 use wasm_bindgen::prelude::*;
+
+use schema::Token;
 
 // A macro to provide `println!(..)`-style syntax for `console.log` logging.
 macro_rules! console_log {
@@ -45,11 +49,31 @@ pub fn calculate(input: String) -> String {
 }
 
 pub fn parse_to_tokens(input: &str) -> Vec<Token> {
-    input
-        .split_whitespace()
-        .filter_map(|value| value.parse::<Token>().ok())
+    static RE: Lazy<Regex> = Lazy::new(|| {
+        Regex::new(
+            r"(?x)
+        (?P<number>-?\d*\.?\d+([eE][+-]?\d+)?) |  # numbers, including floats
+        (?P<operator>[+\-*/]) |                   # operators
+        (?P<paren>[()])                           # parentheses
+    ",
+        )
+        .unwrap()
+    });
+
+    RE.captures_iter(input)
+        .filter_map(|captures| {
+            captures
+                .get(0)
+                .and_then(|value| Token::from_str(value.as_str()).ok())
+        })
         .collect()
 }
+// pub fn parse_to_tokens(input: &str) -> Vec<Token> {
+//     input
+//         .split_whitespace()
+//         .filter_map(|value| value.parse::<Token>().ok())
+//         .collect()
+// }
 
 pub fn validate_tokens(tokens: &[Token]) -> bool {
     use Token::*;
