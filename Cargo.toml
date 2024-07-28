@@ -23,7 +23,7 @@
   # code size when deploying.
   console_error_panic_hook = { version = "0.1", optional = true }
   cfg-if = "1.0.0"
-  exmex = "0.20.1"
+  lazy-regex = "3.2.0"
   web-sys = { version = "0.3", features = ["console"] }
 
 
