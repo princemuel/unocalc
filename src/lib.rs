@@ -23,18 +23,12 @@ macro_rules! console_log {
 #[wasm_bindgen]
 pub fn calculate(input: String) -> String {
     utils::set_panic_hook();
+
     // parse input to Vec<Token>
     let tokens = parse_to_tokens(&input);
     console_log!("tokens: {tokens:?}",);
 
     // validate token sequence (e.g. check for mismatched parentheses)
-
-    // convert to RPN if needed
-
-    // evaluate RPN or infix expression
-
-    // return result as string
-    // Basic validation example
     if !validate_tokens(&tokens) {
         return "0".to_string();
     }
@@ -42,9 +36,10 @@ pub fn calculate(input: String) -> String {
     // Convert to RPN (postfix notation) if needed
     let rpn = convert_to_rpn(&tokens);
 
-    // Evaluate RPN expression
+    // Evaluate RPN expression or infix expression
     let result = evaluate_rpn(&rpn);
 
+    // return result as string
     result.to_string()
 }
 
@@ -64,7 +59,8 @@ pub fn parse_to_tokens(input: &str) -> Vec<Token> {
         .filter_map(|captures| {
             captures
                 .get(0)
-                .and_then(|value| Token::from_str(value.as_str()).ok())
+                .and_then(|value| value.as_str().parse::<Token>().ok())
+            // .and_then(|value| Token::from_str(value.as_str()).ok())
         })
         .collect()
 }
