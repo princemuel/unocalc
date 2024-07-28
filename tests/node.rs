@@ -44,21 +44,31 @@ fn test_parse_to_tokens() {
         Token::Number(1.0),
         Token::Paren(false),
     ];
-    assert_eq!(parse_to_tokens(input), Ok(expected));
+    assert_eq!(parse_to_tokens(input), expected);
 
     // on single number
     let input = "42";
     let expected = vec![Token::Number(42.0)];
-    assert_eq!(parse_to_tokens(input), Ok(expected));
+    assert_eq!(parse_to_tokens(input), expected);
 
     // on invalid token
     let input = "-5 + 3.12 * ( 2 - 1 ) e";
-    let expected = Err("Invalid Token: e".to_string());
+    let expected = vec![
+        Token::Number(-5.0),
+        Token::Operator('+'),
+        Token::Number(3.12),
+        Token::Operator('*'),
+        Token::Paren(true),
+        Token::Number(2.0),
+        Token::Operator('-'),
+        Token::Number(1.0),
+        Token::Paren(false),
+    ];
     assert_eq!(parse_to_tokens(input), expected);
 
     // on empty string
     let input = "";
-    let expected = Ok(vec![]);
+    let expected = vec![];
     assert_eq!(parse_to_tokens(input), expected);
 }
 
