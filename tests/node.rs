@@ -29,7 +29,7 @@ fn test_parse_to_tokens() {
         Number(1.0),
         Paren(false),
     ];
-    assert_eq!(parse_to_tokens(input), Ok(expected));
+    assert_eq!(parse_to_tokens(input), expected);
 
     // on extra whitespace
     let input = "  -5   +  3.12 *  ( 2 - 1 ) ";
