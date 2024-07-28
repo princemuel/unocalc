@@ -20,11 +20,7 @@ macro_rules! console_log {
 pub fn calculate(input: String) -> String {
     utils::set_panic_hook();
     // parse input to Vec<Token>
-    let tokens = match parse_to_tokens(&input) {
-        Ok(tokens) => tokens,
-        Err(e) => return format!("Error: {}", e),
-    };
-
+    let tokens = parse_to_tokens(&input);
     console_log!("tokens: {tokens:?}",);
 
     // validate token sequence (e.g. check for mismatched parentheses)
@@ -48,8 +44,11 @@ pub fn calculate(input: String) -> String {
     result.to_string()
 }
 
-pub fn parse_to_tokens(input: &str) -> Result<Vec<Token>, String> {
-    input.split_whitespace().map(|value| value.parse::<Token>()).collect()
+pub fn parse_to_tokens(input: &str) -> Vec<Token> {
+    input
+        .split_whitespace()
+        .filter_map(|value| value.parse::<Token>().ok())
+        .collect()
 }
 
 pub fn validate_tokens(tokens: &[Token]) -> bool {
