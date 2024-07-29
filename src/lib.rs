@@ -5,8 +5,6 @@ extern crate web_sys;
 pub mod schema;
 pub mod utils;
 
-use std::str::FromStr;
-
 use once_cell::sync::Lazy;
 use regex::Regex;
 use wasm_bindgen::prelude::*;
@@ -100,8 +98,36 @@ pub fn validate_tokens(tokens: &[Token]) -> bool {
 }
 
 pub fn convert_to_rpn(tokens: &[Token]) -> Vec<Token> {
-    // Implement conversion to RPN here
-    tokens.to_vec()
+    use Token::*;
+
+    let mut output_queue: Vec<Token> = Vec::new();
+    let mut operator_stack: Vec<Token> = Vec::new();
+
+    tokens.iter().for_each(|token| match token {
+        Number(_) => output_queue.push(*token),
+        Token::Operator(_) => {
+            while operator_stack.last().map_or(false, |top| {
+                top.precedence() >= token.precedence()
+                    && token.is_left_associative()
+            }) {
+                output_queue.push(operator_stack.pop().unwrap());
+            }
+            operator_stack.push(*token);
+        },
+        Paren(true) => operator_stack.push(*token),
+        Paren(false) => {
+            while operator_stack.last() != Some(&Paren(true)) {
+                output_queue.push(operator_stack.pop().unwrap());
+            }
+            operator_stack.pop(); // Pop the '('
+        },
+    });
+
+    while let Some(op) = operator_stack.pop() {
+        output_queue.push(op);
+    }
+
+    output_queue
 }
 
 pub fn evaluate_rpn(tokens: &[Token]) -> f64 {
