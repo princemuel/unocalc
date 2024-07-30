@@ -1,15 +1,17 @@
+use std::str::FromStr;
+
 #[derive(Debug, Copy, Clone, PartialEq)]
 pub enum Token {
     Number(f64),
     Operator(char),
-    Paren(bool),
+    Paren(char),
     // Function(String),  // e.g., "sin", "cos", "sqrt"
     // Variable(String),  // e.g., "x", "y"
     // Constant(String),  // e.g., "pi", "e"
 }
 
 impl Token {
-    pub fn precedence(&self) -> Option<i32> {
+    pub fn precedence(&self) -> Option<u8> {
         match self {
             Token::Operator('+') | Token::Operator('-') => Some(1),
             Token::Operator('*') | Token::Operator('/') => Some(2),
@@ -22,7 +24,7 @@ impl Token {
     }
 }
 
-impl std::str::FromStr for Token {
+impl FromStr for Token {
     type Err = String;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
@@ -30,8 +32,7 @@ impl std::str::FromStr for Token {
             "+" | "-" | "*" | "/" => {
                 Ok(Token::Operator(s.chars().next().unwrap()))
             },
-            "(" => Ok(Token::Paren(true)),
-            ")" => Ok(Token::Paren(false)),
+            "(" | ")" => Ok(Token::Paren(s.chars().next().unwrap())),
             _ => s
                 .parse::<f64>()
                 .map(Token::Number)
