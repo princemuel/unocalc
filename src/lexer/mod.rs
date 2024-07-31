@@ -81,10 +81,10 @@ mod tests {
 
     #[test]
     fn test_lexer_1() {
-        let input = &b"- + * / ( ) "[..];
+        let input = &b"-+*/()"[..];
         let (_, result) = Lexer::tokenize(input).unwrap();
 
-        let expected_results = vec![
+        let expected = vec![
             Token::Operator('-'),
             Token::Operator('+'),
             Token::Operator('*'),
@@ -93,7 +93,43 @@ mod tests {
             Token::Paren(false),
             Token::EOF,
         ];
+        assert_eq!(result, expected);
+    }
 
-        assert_eq!(result, expected_results);
+    #[test]
+    fn test_lexer_2() {
+        let input = &b"- + * / ( ) "[..];
+        let (_, result) = Lexer::tokenize(input).unwrap();
+
+        let expected = vec![
+            Token::Operator('-'),
+            Token::Operator('+'),
+            Token::Operator('*'),
+            Token::Operator('/'),
+            Token::Paren(true),
+            Token::Paren(false),
+            Token::EOF,
+        ];
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_lexer_3() {
+        let input = &b"  -5   +  3.12 *  ( 2 - 1 ) "[..];
+        let (_, result) = Lexer::tokenize(input).unwrap();
+        let expected = vec![
+            Token::Operator('-'),
+            Token::Number(5.0),
+            Token::Operator('+'),
+            Token::Number(3.12),
+            Token::Operator('*'),
+            Token::Paren(true),
+            Token::Number(2.0),
+            Token::Operator('-'),
+            Token::Number(1.0),
+            Token::Paren(false),
+            Token::EOF,
+        ];
+        assert_eq!(result, expected);
     }
 }
