@@ -4,9 +4,11 @@ use std::ops::{Range, RangeFrom, RangeFull, RangeTo};
 
 #[derive(Debug, Clone, PartialEq)]
 pub enum Token {
-    // Number()
+    Illegal,
+    EOF,
+    Number(f64),
     Operator(char),
-    Paren(bool),
+    Paren(char),
 }
 
 #[derive(Default, Debug, Clone, Copy, PartialEq)]
