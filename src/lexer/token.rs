@@ -8,7 +8,7 @@ pub enum Token {
     EOF,
     Number(f64),
     Operator(char),
-    Paren(char),
+    Paren(bool),
 }
 
 #[derive(Default, Debug, Clone, Copy, PartialEq)]

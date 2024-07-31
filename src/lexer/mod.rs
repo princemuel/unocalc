@@ -1,16 +1,13 @@
 use nom::branch::alt;
 use nom::bytes::complete::{tag, take};
-use nom::character::complete::{
-    alpha1, alphanumeric1, char, digit1, multispace0, one_of,
-};
+use nom::character::complete::{digit1, multispace0, one_of};
 use nom::combinator::{map, map_res, opt, recognize};
-use nom::multi::{many0, many1};
-use nom::sequence::{delimited, pair, preceded, terminated, tuple};
+use nom::multi::many0;
+use nom::sequence::{delimited, pair, tuple};
 use nom::*;
 
 use std::str;
 use std::str::FromStr;
-use std::str::Utf8Error;
 
 pub mod token;
 use crate::lexer::token::*;
@@ -24,17 +21,17 @@ macro_rules! syntax {
 }
 
 // Operator Tokens
-syntax! {plus_oprtr, "+", Token::Operator('+')}
-syntax! {minus_oprtr, "-", Token::Operator('-')}
-syntax! {multiply_oprtr, "*", Token::Operator('*')}
-syntax! {divide_oprtr, "/", Token::Operator('/')}
+syntax! {plus_op, "+", Token::Operator('+')}
+syntax! {minus_op, "-", Token::Operator('-')}
+syntax! {multiply_op, "*", Token::Operator('*')}
+syntax! {divide_op, "/", Token::Operator('/')}
 pub fn lex_operator(input: &[u8]) -> IResult<&[u8], Token> {
-    alt((plus_oprtr, minus_oprtr, multiply_oprtr, divide_oprtr))(input)
+    alt((plus_op, minus_op, multiply_op, divide_op))(input)
 }
 
 // Punctuation Tokens
-syntax! {l_paren, "(", Token::Paren('(')}
-syntax! {r_paren, ")", Token::Operator(')')}
+syntax! {l_paren, "(", Token::Paren(true)}
+syntax! {r_paren, ")", Token::Paren(false)}
 pub fn lex_punctuation(input: &[u8]) -> IResult<&[u8], Token> {
     alt((l_paren, r_paren))(input)
 }
@@ -83,20 +80,17 @@ mod tests {
     use super::*;
 
     #[test]
-
     fn test_lexer_1() {
-        let input = &b"-+(){},;"[..];
+        let input = &b"- + * / ( ) "[..];
         let (_, result) = Lexer::tokenize(input).unwrap();
 
         let expected_results = vec![
-            // Token::Assign,
-            // Token::Plus,
-            // Token::LParen,
-            // Token::RParen,
-            // Token::LBrace,
-            // Token::RBrace,
-            // Token::Comma,
-            // Token::SemiColon,
+            Token::Operator('-'),
+            Token::Operator('+'),
+            Token::Operator('*'),
+            Token::Operator('/'),
+            Token::Paren(true),
+            Token::Paren(false),
             Token::EOF,
         ];
 
