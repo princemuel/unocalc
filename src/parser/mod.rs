@@ -1,6 +1,6 @@
 use nom::branch::*;
 use nom::bytes::complete::take;
-use nom::combinator::{map, opt, verify};
+use nom::combinator::{map, verify};
 use nom::error::{Error, ErrorKind};
 use nom::multi::many0;
 use nom::sequence::*;
@@ -35,8 +35,6 @@ fn parse_literal(input: Tokens) -> IResult<Tokens, Literal> {
 
 tag_token!(plus_tag, Token::Operator('+'));
 tag_token!(minus_tag, Token::Operator('-'));
-// tag_token!(multiply, Token::Operator('*'));
-// tag_token!(divide, Token::Operator('/'));
 tag_token!(l_paren_tag, Token::Paren(true));
 tag_token!(r_paren_tag, Token::Paren(false));
 tag_token!(eof_tag, Token::EOF);
@@ -56,13 +54,7 @@ fn parse_program(input: Tokens) -> IResult<Tokens, Program> {
     terminated(many0(parse_expr_stmt), eof_tag)(input)
 }
 
-// fn parse_stmt(input: Tokens) -> IResult<Tokens, Stmt> {
-//     alt(parse_expr_stmt)(input)
-// }
-
 fn parse_expr_stmt(input: Tokens) -> IResult<Tokens, Stmt> {
-    // map(terminated(parse_expr, opt(eof_tag)), Stmt::ExprStmt)(input)
-
     map(parse_expr, Stmt::ExprStmt)(input)
 }
 
