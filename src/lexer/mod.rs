@@ -44,7 +44,6 @@ fn lex_number(input: &[u8]) -> IResult<&[u8], Token> {
         opt(pair(tag("."), digit1)),
         opt(pair(one_of("eE"), tuple((opt(one_of("+-")), digit1)))),
     )));
-
     map(
         map_res(map_res(parser, |value| str::from_utf8(value)), |value| {
             f64::from_str(value)

@@ -27,8 +27,7 @@ fn parse_literal(input: Tokens) -> IResult<Tokens, Literal> {
         Err(Err::Error(Error::new(input, ErrorKind::Tag)))
     } else {
         match t1.token[0].clone() {
-            Token::Int(val) => Ok((i1, Literal::Int(val))),
-            Token::Float(val) => Ok((i1, Literal::Float(val))),
+            Token::Number(val) => Ok((i1, Literal::Number(val))),
             _ => Err(Err::Error(Error::new(input, ErrorKind::Tag))),
         }
     }
@@ -62,7 +61,9 @@ fn parse_program(input: Tokens) -> IResult<Tokens, Program> {
 // }
 
 fn parse_expr_stmt(input: Tokens) -> IResult<Tokens, Stmt> {
-    map(terminated(parse_expr, opt(eof_tag)), Stmt::ExprStmt)(input)
+    // map(terminated(parse_expr, opt(eof_tag)), Stmt::ExprStmt)(input)
+
+    map(parse_expr, Stmt::ExprStmt)(input)
 }
 
 fn parse_atom_expr(input: Tokens) -> IResult<Tokens, Expression> {
@@ -170,8 +171,8 @@ mod tests {
 
         let expected: Program = vec![Stmt::ExprStmt(Expression::InfixExpr(
             Infix::Plus,
-            Box::new(Expression::LitExpr(Literal::Int(10))),
-            Box::new(Expression::LitExpr(Literal::Int(20))),
+            Box::new(Expression::LitExpr(Literal::Number(10.0))),
+            Box::new(Expression::LitExpr(Literal::Number(20.0))),
         ))];
 
         let (_, r) = Lexer::tokenize(input).unwrap();

@@ -14,8 +14,7 @@ pub enum Expression {
 
 #[derive(Debug, Clone, PartialEq)]
 pub enum Literal {
-    Int(i64),
-    Float(f64),
+    Number(f64),
 }
 
 #[derive(Debug, Clone, PartialEq)]
