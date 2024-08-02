@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html
   lang="en"
   class="__sans__ *:transition *:duration-700 *:delay-0 *:ease-in"
@@ -24,9 +24,7 @@
         font-family: "__FontSans__";
         font-optical-sizing: auto;
         font-style: normal;
-        font-variation-settings:
-          "wdth" 100,
-          "YTLC" 500;
+        font-variation-settings: "wdth" 100, "YTLC" 500;
         font-display: swap;
       }
       .__sans__ {
@@ -44,10 +42,12 @@
           const theme = storedTheme || (mql.matches ? "light" : "dark");
           document.documentElement.dataset.theme = theme;
           return {
-            updateWidget(theme = storedTheme || "auto") {
-              /** @type {HTMLInputElement | null} */
-              const element = document.getElementById(theme);
-              if (element) element.checked = true;
+            updateWidget(theme = storedTheme || "dark") {
+              /** @type {NodeListOf<HTMLInputElement> | null} */
+              const elements = document.querySelectorAll(`[data-id*="t-"]`);
+              for (const e of elements) {
+                e.ariaChecked = e.id === theme ? true : false;
+              }
             },
           };
         })();
@@ -110,21 +110,24 @@
                   type="radio"
                   name="uno-theme"
                   id="dark"
-                  class="cursor-pointer hocus:brightness-125 size-3 rounded-full appearance-none forced-colors:appearance-auto checked:bg-accent-400"
+                  data-id="t-dark"
+                  class="cursor-pointer hocus:brightness-125 size-3 rounded-full appearance-none forced-colors:appearance-auto aria-checked:bg-accent-400"
                   value="dark"
                 />
                 <input
                   type="radio"
                   name="uno-theme"
                   id="light"
-                  class="cursor-pointer hocus:brightness-125 size-3 rounded-full appearance-none forced-colors:appearance-auto checked:bg-accent-200"
+                  data-id="t-light"
+                  class="cursor-pointer hocus:brightness-125 size-3 rounded-full appearance-none forced-colors:appearance-auto aria-checked:bg-accent-200"
                   value="light"
                 />
                 <input
                   type="radio"
                   name="uno-theme"
                   id="neon"
-                  class="cursor-pointer hocus:brightness-125 size-3 rounded-full appearance-none forced-colors:appearance-auto checked:bg-accent-700"
+                  data-id="t-neon"
+                  class="cursor-pointer hocus:brightness-125 size-3 rounded-full appearance-none forced-colors:appearance-auto aria-checked:bg-accent-700"
                   value="neon"
                 />
               </span>
@@ -143,7 +146,7 @@
 
         <form
           id="keypad"
-          class="grid grid-cols-4 gap-4 p-4 sm:p-6 text-2xl rounded-lg [grid-template-areas:'seven_eight_nine_delete''four_five_six_plus''one_two_three_minus''decimal_zero_divide_times''reset_reset_equal_equal'] bg-marine-400 dark:bg-prussian-700 neon:bg-lilac-400"
+          class="grid grid-cols-4 gap-4 p-4 sm:p-6 text-2xl rounded-lg [grid-template-areas:'seven_eight_nine_delete''four_five_six_plus''one_two_three_minus''decimal_zero_divide_times''left_hist_hist_right''reset_reset_equal_equal'] bg-marine-400 dark:bg-prussian-700 neon:bg-lilac-400"
         >
           <button
             type="button"
@@ -275,6 +278,31 @@
             class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 dark:bg-prussian-100 dark:text-prussian-600 dark:shadow-prussian-200 hocus:brightness-125 text-xl sm:text-3xl font-bold neon:text-accent-100 neon:bg-lilac-300 neon:shadow-lilac-200"
           >
             x
+          </button>
+
+          <button
+            type="button"
+            data-type="parens"
+            value="("
+            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 dark:bg-prussian-100 dark:text-prussian-600 dark:shadow-prussian-200 hocus:brightness-125 text-xl sm:text-3xl font-bold neon:text-accent-100 neon:bg-lilac-300 neon:shadow-lilac-200"
+          >
+            (
+          </button>
+          <button
+            type="button"
+            data-type="history"
+            value="history"
+            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 dark:bg-prussian-100 dark:text-prussian-600 dark:shadow-prussian-200 hocus:brightness-125 text-xl sm:text-3xl font-bold neon:text-accent-100 [grid-area:hist] neon:bg-lilac-300 neon:shadow-lilac-200"
+          >
+            🕐
+          </button>
+          <button
+            type="button"
+            data-type="parens"
+            value=")"
+            class="cursor-pointer rounded-lg shadow-[inset_0px_-4px_-0px] shadow-marine-500 text-marine-800 bg-marine-200 dark:bg-prussian-100 dark:text-prussian-600 dark:shadow-prussian-200 hocus:brightness-125 text-xl sm:text-3xl font-bold neon:text-accent-100 neon:bg-lilac-300 neon:shadow-lilac-200"
+          >
+            )
           </button>
 
           <button
