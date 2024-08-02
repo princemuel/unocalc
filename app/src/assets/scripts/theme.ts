@@ -21,7 +21,9 @@
     if (typeof localStorage !== "undefined") {
       localStorage.setItem(
         storageKey,
-        theme === "light" || theme === "dark" || theme === "neon" ? theme : ""
+        theme === "light" || theme === "dark" || theme === "neon"
+          ? theme
+          : "dark"
       );
     }
   }
