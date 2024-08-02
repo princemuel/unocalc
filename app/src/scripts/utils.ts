@@ -18,7 +18,10 @@ export function approximate(num = 0, fractionDigits = 2) {
  * @param {number} [defaultValue=0] - The default value to be returned if parsing fails.
  * @returns {number} The parsed number or the default value.
  */
-export const numberGuard = (value: unknown, defaultValue = 0): number => {
+export const numberGuard = (
+  value: unknown,
+  defaultValue: number = 0
+): number => {
   const parsed = Number(value);
   return Number.isNaN(parsed) || Object.is(parsed, -0) ? defaultValue : parsed;
 };
