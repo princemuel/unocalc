@@ -24,9 +24,7 @@
   console_error_panic_hook = { version = "0.1", optional = true }
   cfg-if = "1.0.0"
   web-sys = { version = "0.3", features = ["console"] }
-once_cell = "=1.19.0"
-regex = "1.10.5"
-nom = "7.1.3"
+  nom = "7.1.3"
 
 
 [dev-dependencies]
@@ -34,4 +32,5 @@ nom = "7.1.3"
 
 [profile.release]
   # Tell `rustc` to optimize for small code size.
-  opt-level = "z"
+  opt-level = 3
+  lto = true

@@ -6,10 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "build:assets": "pwa-assets-generator",
     "build:pkg": "cd .. && wasm-pack build --out-name index && rm pkg/.gitignore && cd ./app && npm install",
     "preview": "vite preview",
-    "prepare": "npm run build:assets && npm run build:pkg"
+    "prepare": "pwa-assets-generator"
   },
   "devDependencies": {
     "@vite-pwa/assets-generator": "^0.2.4",
