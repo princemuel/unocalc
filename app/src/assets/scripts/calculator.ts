@@ -5,9 +5,9 @@ import { numberGuard } from "./utils";
 const form = getElement("#keypad", HTMLFormElement);
 const display = getElement("#result", HTMLOutputElement);
 
-let test_expression = "-1.5 * ( 3 + 4 ) * 2 - 5 / 2.5 + 6 / 3";
+// let test_expression = "-1.5 * ( 3 + 4 ) * 2 - 5 / 2.5 + 6 / 3";
 
-test_expression = "-1.5*(3+4)*2-5/2.5+6/3";
+// test_expression = "-1.5*(3+4)*2-5/2.5+6/3";
 
 const intNFormat = (value: number) =>
   (function () {
@@ -72,69 +72,69 @@ function isValid(expression: string) {
     return balance === 0;
   };
 
-  const isSyntaxValid = (expr: string) => {
-    const operators = "+-*/";
-    const validChars = "0123456789" + operators + "()";
-    let lastChar = "";
-    let prevChar = "";
+  // const isSyntaxValid = (expr: string) => {
+  //   const operators = "+-*/";
+  //   const validChars = "0123456789" + operators + "()";
+  //   let lastChar = "";
+  //   let prevChar = "";
 
-    for (const char of expr) {
-      // Check for invalid characters
-      if (!validChars.includes(char)) {
-        console.log("invalid char");
-        return false;
-      }
+  //   for (const char of expr) {
+  //     // Check for invalid characters
+  //     if (!validChars.includes(char)) {
+  //       console.log("invalid char");
+  //       return false;
+  //     }
 
-      // Check for invalid operator usage
-      if (operators.includes(char)) {
-        if (
-          operators.includes(lastChar) ||
-          lastChar === "" ||
-          lastChar === "("
-        ) {
-          console.log("invalid operator");
+  //     // Check for invalid operator usage
+  //     if (operators.includes(char)) {
+  //       if (
+  //         operators.includes(lastChar) ||
+  //         lastChar === "" ||
+  //         lastChar === "("
+  //       ) {
+  //         console.log("invalid operator");
 
-          return false;
-        }
-      }
+  //         return false;
+  //       }
+  //     }
 
-      // Check for invalid parentheses usage
-      if (char === ")") {
-        if (
-          lastChar === "" ||
-          operators.includes(lastChar) ||
-          lastChar === "("
-        ) {
-          console.log("invalid parentheses");
-          return false;
-        }
-      }
+  //     // Check for invalid parentheses usage
+  //     if (char === ")") {
+  //       if (
+  //         lastChar === "" ||
+  //         operators.includes(lastChar) ||
+  //         lastChar === "("
+  //       ) {
+  //         console.log("invalid parentheses");
+  //         return false;
+  //       }
+  //     }
 
-      if (char === "(") {
-        if (operators.includes(lastChar) || lastChar === "") {
-          return false;
-        }
-      }
+  //     if (char === "(") {
+  //       if (operators.includes(lastChar) || lastChar === "") {
+  //         return false;
+  //       }
+  //     }
 
-      // Handle edge case where there could be negative numbers
-      if (
-        char === "-" &&
-        (lastChar === "" || operators.includes(lastChar) || lastChar === "(")
-      ) {
-        // Handle valid negative numbers or unary minus
-        if (prevChar !== "" && !operators.includes(prevChar)) {
-          return false;
-        }
-      }
+  //     // Handle edge case where there could be negative numbers
+  //     if (
+  //       char === "-" &&
+  //       (lastChar === "" || operators.includes(lastChar) || lastChar === "(")
+  //     ) {
+  //       // Handle valid negative numbers or unary minus
+  //       if (prevChar !== "" && !operators.includes(prevChar)) {
+  //         return false;
+  //       }
+  //     }
 
-      // Update lastChar and prevChar for next iteration
-      prevChar = lastChar;
-      lastChar = char;
-    }
+  //     // Update lastChar and prevChar for next iteration
+  //     prevChar = lastChar;
+  //     lastChar = char;
+  //   }
 
-    // Ensure the expression does not end with an operator
-    return !operators.includes(lastChar);
-  };
+  //   // Ensure the expression does not end with an operator
+  //   return !operators.includes(lastChar);
+  // };
 
   // Main validation function
   const expr = removeWhitespace(expression);
