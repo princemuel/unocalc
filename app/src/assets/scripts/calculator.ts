@@ -1,100 +1,154 @@
-import { Calculator, Operation } from "unocalc";
+import { calculate } from "unocalc";
 import { getElement } from "./dom";
-import { number_guard } from "./utils";
-
-const calculator = new Calculator();
-
-const operations = new Map([
-  ["+", Operation.Add],
-  ["-", Operation.Subtract],
-  ["x", Operation.Multiply],
-  ["/", Operation.Divide],
-]) satisfies Map<string, Operation>;
+import { numberGuard } from "./utils";
 
 const form = getElement("#keypad", HTMLFormElement);
 const display = getElement("#result", HTMLOutputElement);
 
-let expression = "";
+let test_expression = "-1.5 * ( 3 + 4 ) * 2 - 5 / 2.5 + 6 / 3";
 
-const actions = {
-  "=": function () {
-    console.log(expression);
-  },
-  del: function () {
-    expression = expression.slice(0, -1);
-  },
-  reset: function () {
-    expression = "";
-  },
-  default: function (value = "") {
-    if (is_valid(expression, value)) expression += value;
-    console.log(expression);
-  },
-} as Record<string, (value?: string) => void>;
+test_expression = "-1.5*(3+4)*2-5/2.5+6/3";
+
+const intNFormat = (value: number) =>
+  (function () {
+    const options: Intl.NumberFormatOptions =
+      value.toString().length > 9
+        ? { notation: "scientific" }
+        : { notation: "standard" };
+    return new Intl.NumberFormat(navigator.language, options).format(value);
+  })();
+
+let expression = "";
+let result = 0.0;
+
+const mathKeys = new Map([
+  ["decimal", "decimal"],
+  ["number", "number"],
+  ["operator", "operator"],
+  ["parens", "parens"],
+]);
 
 form.addEventListener("click", (e) => {
   const key = e.target;
 
   if (key instanceof HTMLButtonElement) {
-    const key_type = key.dataset.type;
-    const value = (key.value ?? "").trim().toLowerCase();
-    console.log(value);
+    const keyType = key.dataset.type || "";
+    const keyValue = (key.value ?? "").trim().toLowerCase();
 
-    (actions[value] || actions.default)(value);
+    if (mathKeys.get(keyType) && isValid(expression + keyValue)) {
+      // display.value =
+      expression += keyValue;
+    }
 
-    // if (
-    //   key_type === "number" ||
-    //   key_type === "decimal" ||
-    //   key_type === "operator"
-    // ) {
-    //   actions.default(value);
-    // } else if (key_type === "equals") {
-    //   actions["="]();
-    // } else if (key_type === "delete") {
-    //   actions.del();
-    // } else if (key_type === "reset") {
-    //   actions.reset();
-    // }
+    if (keyType === "equals" && isValid(expression)) {
+      result = calculate(expression);
+    }
 
-    // const result = number_guard(calculator.get_current_value());
-    // output.value = new Intl.NumberFormat().format(result);
+    if (keyType === "delete") expression = expression.slice(0, -1);
+    if (keyType === "reset") expression = "";
+
+    display.value = intNFormat(numberGuard(result));
   }
 });
 
-// function is_valid(expression: string, value: string) {
-//   const input_regex = /^[0-9+\-*/.]*$/;
-//   // const expr_regex =
-//   //   /^(\s*(?:[0-9]*\.?[0-9]+(?:\s*[-+*/]\s*[0-9]*\.?[0-9]+)*)|(?:\([^\(\)]+\))*)\s*$/;
-//   //
-//   const expr_regex =
-//     /^((?:[0-9]*\.?[0-9]+(?:\s*[-+*/]\s*[0-9]*\.?[0-9]+)*)|(?:\([^\(\)]+\))*)\s*$/;
+function isValid(expression: string) {
+  // Remove all whitespace
+  const removeWhitespace = (expr: string) => expr.replace(/\s+/gu, "");
 
-//   if (!input_regex.test(expression + value)) return false;
-//   if (expr_regex.test(expression + value)) return false;
+  // Check for invalid characters
+  const hasInvalidChars = (expr: string) => /[^0-9+\-*/().]/gu.test(expr);
 
-//   const last_number = expression.split(/[\+\-\*\/]/).pop();
-//   if (value === "." && last_number?.includes(".")) return false;
+  // Check for duplicate decimals in a number
+  const hasDuplicateDecimals = (expr: string) => /\d+\.\d*\.\d+/gu.test(expr);
 
-//   return true;
-// }
-//
-function is_valid(expression: string, value: string) {
-  const input_regex = /^[0-9+\-*/.]*$/giu;
-  // const expr_regex =
-  //   /^(\d+(\.\d+)?([+\-*/]\d+(\.\d+)?)*|\(\d+(\.\d+)?([+\-*/]\d+(\.\d+)?)*\))$/;
-  //
-  const expr_regex =
-    /^(\s*(?:[0-9]*\.?[0-9]+(?:\s*[-+*/]\s*[0-9]*\.?[0-9]+)*)|(?:\([^\(\)]+\))*)\s*$/giu;
+  // Check for balanced parentheses
+  const areParenthesesBalanced = (expr: string) => {
+    let balance = 0;
+    for (const char of expr) {
+      if (char === "(") balance++;
+      if (char === ")") balance--;
+      if (balance < 0) return false;
+    }
+    return balance === 0;
+  };
 
-  // Ensure the new value is valid and doesn't include illegal characters
-  if (!input_regex.test(expression + value)) return false;
+  const isSyntaxValid = (expr: string) => {
+    const operators = "+-*/";
+    const validChars = "0123456789" + operators + "()";
+    let lastChar = "";
+    let prevChar = "";
 
-  // Check for valid expression formation
-  if (!expr_regex.test(expression + value)) return false;
+    for (const char of expr) {
+      // Check for invalid characters
+      if (!validChars.includes(char)) {
+        console.log("invalid char");
+        return false;
+      }
 
-  // Check for multiple decimal points in the last number
-  const last_number = expression.split(/[\+\-\*\/]/).pop() || "";
-  if (value === "." && last_number.includes(".")) return false;
+      // Check for invalid operator usage
+      if (operators.includes(char)) {
+        if (
+          operators.includes(lastChar) ||
+          lastChar === "" ||
+          lastChar === "("
+        ) {
+          console.log("invalid operator");
 
-  return true;
+          return false;
+        }
+      }
+
+      // Check for invalid parentheses usage
+      if (char === ")") {
+        if (
+          lastChar === "" ||
+          operators.includes(lastChar) ||
+          lastChar === "("
+        ) {
+          console.log("invalid parentheses");
+          return false;
+        }
+      }
+
+      if (char === "(") {
+        if (operators.includes(lastChar) || lastChar === "") {
+          return false;
+        }
+      }
+
+      // Handle edge case where there could be negative numbers
+      if (
+        char === "-" &&
+        (lastChar === "" || operators.includes(lastChar) || lastChar === "(")
+      ) {
+        // Handle valid negative numbers or unary minus
+        if (prevChar !== "" && !operators.includes(prevChar)) {
+          return false;
+        }
+      }
+
+      // Update lastChar and prevChar for next iteration
+      prevChar = lastChar;
+      lastChar = char;
+    }
+
+    // Ensure the expression does not end with an operator
+    return !operators.includes(lastChar);
+  };
+
+  // Main validation function
+  const expr = removeWhitespace(expression);
+
+  // const a = !hasInvalidChars(expr);
+  // const b = !hasDuplicateDecimals(expr);
+  // const c = areParenthesesBalanced(expr);
+  // const d = isSyntaxValid(expr);
+  // console.log(a, b, c, d);
+
+  return (
+    !hasInvalidChars(expr) &&
+    !hasDuplicateDecimals(expr) &&
+    areParenthesesBalanced(expr)
+    // && isSyntaxValid(expr)
+  );
 }
