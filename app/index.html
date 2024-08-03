@@ -2,13 +2,10 @@
 <html
   lang="en"
   class="__sans__ *:transition *:duration-700 *:delay-0 *:ease-in"
-  data-theme="auto"
+  data-theme="dark"
 >
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" href="/favicon.ico" sizes="48x48" />
-    <link rel="icon" href="/favicon.svg" sizes="any" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon-180x180.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Uno Calc</title>
     <meta name="title" content="Uno Calc" />
@@ -17,18 +14,39 @@
       content="Yet another calculator webapp with light, dark & neon themes. Built with HTML, TailwindCSS, Typescript, Vite, Rust and Wasm"
     />
     <meta name="keywords" itemprop="keywords" content="" />
-    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="color-scheme" content="dark light" />
+    <meta
+      name="theme-color"
+      media="(prefers-color-scheme: light)"
+      content="#fafafa"
+    />
+    <meta
+      name="theme-color"
+      media="(prefers-color-scheme: dark)"
+      content="3a4764"
+    />
+    <meta name="msapplication-TileColor" content="#fafafa" />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+    <link
+      rel="preconnect"
+      crossorigin="anonymous"
+      href="https://fonts.googleapis.com"
+    />
+    <link
+      rel="preconnect"
+      crossorigin="anonymous"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+    <link
+      rel="stylesheet"
+      crossorigin="anonymous"
+      href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@700&display=swap"
+    />
     <style>
-      @font-face {
-        src: url(/src/assets/fonts/league-spartan.ttf) format("truetype");
-        font-family: "__FontSans__";
-        font-optical-sizing: auto;
-        font-style: normal;
-        font-variation-settings: "wdth" 100, "YTLC" 500;
-        font-display: swap;
-      }
       .__sans__ {
-        --font-sans: "__FontSans__";
+        --font-sans: "League Spartan";
       }
     </style>
     <script>
