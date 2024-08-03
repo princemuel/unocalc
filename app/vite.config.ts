@@ -2,7 +2,6 @@ import { defineConfig } from "vite";
 import { VitePWA as pwa, VitePWAOptions } from "vite-plugin-pwa";
 import top_level_await from "vite-plugin-top-level-await";
 import wasm from "vite-plugin-wasm";
-// import manifest from "./manifest.json"
 
 const manifest = (function () {
   type ManifestPromise = Promise<VitePWAOptions["manifest"]>;
@@ -56,13 +55,11 @@ export default defineConfig({
             },
           },
           {
-            urlPattern: ({ request }) => request.destination === "image",
+            urlPattern: /^(?!.*\.(woff|woff2|ttf|otf)$).*\.[^.]+$/giu,
             handler: "StaleWhileRevalidate",
             options: {
-              cacheName: "images-cache",
-              expiration: {
-                maxEntries: 10,
-              },
+              cacheName: "others-cache",
+              expiration: { maxEntries: 20, maxAgeSeconds: 60 * 60 * 24 },
             },
           },
         ],
