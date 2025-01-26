@@ -1,9 +1,9 @@
 import { calculate } from "unocalc";
-import { getElement } from "./dom";
+import { $ } from "./dom";
 import { numberGuard } from "./utils";
 
-const form = getElement("#keypad", HTMLFormElement);
-const display = getElement("#result", HTMLOutputElement);
+const form = $("#keypad", HTMLFormElement);
+const display = $("#result", HTMLOutputElement);
 
 // let test_expression = "-1.5 * ( 3 + 4 ) * 2 - 5 / 2.5 + 6 / 3";
 
